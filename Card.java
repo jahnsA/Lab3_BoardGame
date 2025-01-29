@@ -1,38 +1,22 @@
-// Define enum for Face
-enum Face {
-    ACE, DEUCE, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING
-}
-
-// Define enum for Suit
-enum Suit {
-    HEARTS, DIAMONDS, CLUBS, SPADES
+//Class purpose: to create card object
+// Define enum for CardType
+enum CardType {
+    ONE, TWO, THREE, FOUR, FIVE, SEVEN, EIGHT, ELEVEN, TWELVE, SORRY
 }
 
 public class Card {
-    private final Face face; // Enum for face of card
-    private Suit suit; // Enum for suit of card
+    private CardType cardType; // Enum for card type
 
-    // Two-argument constructor initializes card's face and suit
-    public Card(Face cardFace, Suit cardSuit) {
-        this.face = cardFace; // Initialize face of card
-        this.suit = cardSuit; // Initialize suit of card
+    // constructor initializes card's type
+    public Card(CardType cardType) {
+        this.cardType = cardType; // Initialize face of card
     }
 
-    // Return String representation of Card
-    public String toString() {
-        return face + " of " + suit;
+    public CardType getCardType() {
+        return this.cardType;
     }
 
-    // Get method for face
-    public Face getFace() {
-        return this.face;
+    public void setCardType (CardType newCardType) {
+        this.cardType = newCardType;
     }
-
-    public Suit getSuit() {
-        return this.suit;
-    }
-
-    public void setSuit(Suit newSuit) {
-        this.suit = newSuit;
-    }
-}
+}//end class Card
