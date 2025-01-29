@@ -13,11 +13,23 @@ public class BoardGame {
 
     // Constructor fills deck of cards
     public BoardGame() {
-        // Populate deck with Card objects using card type enums
-        for (int count = 0; count < deck.length; count++) {
-            deck[count] = new Card(cardType.value);
-            //deck[count] = new Card(Face.values()[count % 13], Suit.values()[count / 13]);
-        }//end for loop
+        int arrayPos = 0;
+        //add the rest of the deck
+        for (CardType i: CardType.values()) { //go through each type of card
+            //add 5 ones
+            if (i == CardType.ONE){
+                for (int j = 0; j < 5; j++) {
+                    deck[arrayPos] = new Card(i);
+                    arrayPos++;
+                }//end inner for loop
+            } else {
+                //add 4 for all other card types
+                for (int x = 0; x < 4; x++) {
+                    deck[arrayPos] = new Card(i);
+                    arrayPos++;
+                }//end inner for loop
+            }//end if/else
+        }//end outer for loop
     }//end DeckOfCards constructor
 
     //shuffle deck of Cards with one-pass algorithm

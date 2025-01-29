@@ -1,7 +1,7 @@
 //Class purpose: to create card object
 // Define enum for CardType
 enum CardType {
-    ONE, TWO, THREE, FOUR, FIVE, SEVEN, EIGHT, ELEVEN, TWELVE, SORRY
+    ONE, TWO, THREE, FOUR, FIVE, SEVEN, EIGHT, TEN, ELEVEN, TWELVE, SORRY
 }
 
 public class Card {
@@ -19,4 +19,5 @@ public class Card {
     public void setCardType (CardType newCardType) {
         this.cardType = newCardType;
     }
+
 }//end class Card
