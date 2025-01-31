@@ -64,8 +64,19 @@ public class BoardGame {
         }//end for loop
         System.out.println("|");//close top row and start new line
 
-        //create left and right vertical rows (before safety zone)
-        for (int i = 0; i < 8; i++) {//print a column with 9 spaces
+        //create left and right columns and top safety zone
+        for (int t = 0; t < 6; t++) { //print a column with 7 spaces
+            System.out.print("|_| |_|");
+            //print spaces in between columns
+            for (int y = 0; y < 23; y++){
+                System.out.print(" ");
+            }//end for loop
+            //print safety zone and right column
+            System.out.println("|_|");
+        }//end for loop
+
+        //create left and right columns (no safety zone)
+        for (int i = 0; i < 2; i++) {//print a column with 2 spaces
             System.out.print("|_|");
             //print spaces between columns
             for(int k = 0; k < 27; k++){
@@ -75,7 +86,7 @@ public class BoardGame {
             System.out.println("|_|");
         }//end for loop
 
-        //create left and right vertical rows (botttom safety zone)
+        //create left and right columns (botttom safety zone)
         for (int t = 0; t < 6; t++) { //print a column with 7 spaces
             System.out.print("|_|");
             //print spaces in between columns
