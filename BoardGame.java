@@ -6,6 +6,8 @@ public class BoardGame {
     private static final int NUMBER_OF_CARDS = 45;
     private Stack<Card> Deck;
 
+    private BoardNode head; //top of linked list
+
     //creates an array of Card objects (deck)
     private Card[] deck = new Card[NUMBER_OF_CARDS]; //Card references
     //create a stack for deck of cards
@@ -55,6 +57,54 @@ public class BoardGame {
             this.Deck.push(deck[i]);
         }//end for loop
     }//end stackDeck
+
+    //creates circular double linked list with 60 spaces
+    public void createBoardLinkedList() {
+        //create first node at beginning
+        BoardNode firstNode = new BoardNode(nodePosition.regularSpot);
+        //set this node to the head
+        head = firstNode;
+        //make it a circular linked list
+        firstNode.next = firstNode;
+        firstNode.prev = firstNode;
+        //add 59 board nodes to linked list (since 1 is already created)
+        for (int i = 0; i < 59; i++){
+            addNode();
+        }//end for loop
+    }//end createBoardLinkedList method
+
+    public void addNode() {
+        //knowing that linked list is not empty didn't check for null head
+        //create new node
+        BoardNode newNode = new BoardNode(nodePosition.regularSpot);
+        //insert new Node at end
+        newNode.prev = head.prev;
+        newNode.next = head;
+        head.prev.next = newNode;
+        head.prev = newNode;
+    }//end addNode method
+
+    //helper method to call printoutLinkedList(head)
+    public void printoutLinkedList(){
+        printoutLinkedList(this.head);
+    }
+
+    //test code method
+    //prints out entire linked list in string with numbers to count spaces
+    public void printoutLinkedList(BoardNode head) {
+        int count = 1;
+        if (head == null) {
+            System.out.println("Board Empty");
+            return;
+        }
+        BoardNode current = head;
+        do {
+            System.out.print(current.toString() + ": " + count);
+            current = current.next;
+            count++;
+            System.out.println();
+        } while (current != head);
+    }//end of test code method
 
     //create a blank board
     public void createBoard(){

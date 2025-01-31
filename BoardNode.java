@@ -23,6 +23,9 @@ public class BoardNode {
         this.position = position;
     }
 
-    
-
+    //for test code for printing linkedlist
+    //delete later bc we probably wont need it for the board 
+    public String toString() {
+        return this.position.name();
+    }
 }
