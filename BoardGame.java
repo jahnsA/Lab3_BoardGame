@@ -56,4 +56,39 @@ public class BoardGame {
         }//end for loop
     }//end stackDeck
 
+    //create a blank board
+    public void createBoard(){
+        //create top horizontal row
+        for (int i = 0; i < 16; i++){//16 spaces across
+            System.out.print("|_");
+        }//end for loop
+        System.out.println("|");//close top row and start new line
+
+        //create left and right vertical rows (before safety zone)
+        for (int i = 0; i < 8; i++) {//print a column with 9 spaces
+            System.out.print("|_|");
+            //print spaces between columns
+            for(int k = 0; k < 27; k++){
+                System.out.print(" ");
+            }//end for loop
+            //print right column
+            System.out.println("|_|");
+        }//end for loop
+
+        //create left and right vertical rows (botttom safety zone)
+        for (int t = 0; t < 6; t++) { //print a column with 7 spaces
+            System.out.print("|_|");
+            //print spaces in between columns
+            for (int y = 0; y < 23; y++){
+                System.out.print(" ");
+            }//end for loop
+            //print safety zone and right column
+            System.out.println("|_| |_|");
+        }//end for loop
+
+        //create bottom horizontal row
+        for (int i = 0; i < 16; i++){//16 spaces across
+            System.out.print("|_");
+        }//end for loop
+    }//end createBoard
 }//end class BoardGame
