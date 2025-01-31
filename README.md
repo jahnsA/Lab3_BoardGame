@@ -6,6 +6,7 @@
 ## Sources
 
 - <https://www.geeksforgeeks.org/iterating-over-enum-values-in-java/>
+- https://www.geeksforgeeks.org/insertion-in-doubly-circular-linked-list/
 
 ## Disclaimer
 
