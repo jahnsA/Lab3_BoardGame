@@ -1,5 +1,8 @@
 import java.security.SecureRandom;
+import java.util.InputMismatchException;
+import java.util.LinkedList;
 import java.util.Stack;
+import java.util.Scanner;
 
 public class BoardGame {
     private static final SecureRandom randomNumbers = new SecureRandom();
@@ -152,4 +155,204 @@ public class BoardGame {
             System.out.print("|_");
         }//end for loop
     }//end createBoard
-}//end class BoardGame
+
+    //method that moves the pawn forward a certain amount of spaces
+    public void moveForward(BoardNode currentPositon, int spacesToBeMoved) {
+        if (spacesToBeMoved == 1) {
+            currentPositon = currentPositon.next;
+        } else {
+            for(int i = 0; i< spacesToBeMoved-1; i++) {
+                currentPositon = currentPositon.next;
+            }
+        }
+        
+    }//end moveForward
+
+    //method that moves the pawn back a certain amount of spaces
+    public void moveBackward(BoardNode currentPosition, int spacesToBeMoved) {
+        if (spacesToBeMoved == 1) {
+            currentPosition = currentPosition.prev;
+        } else {
+            for(int i = 0; i< spacesToBeMoved-1; i++) {
+                currentPosition = currentPosition.prev;
+            }
+        }
+    } //end noveBackward
+
+    //print card that prints card and gives player choices
+    //NEEDS DRAW CARD METHOD, START PAWN FROM START METHOD, SWITCH PAWN POS OF COMPUTER W/ YOURS METHOD
+    //NEED A WAY TO SAVE PLAYERS AND COMPUTERS PAWN POSITIONS
+    //ADD CONSTRUCTOR FOR COMPUTER PAWN?
+    public void printCard(Card sorryCard, BoardNode currentPosition, Scanner input) {
+        //switch statement to print the values of the cards out?
+        int playerChoice = 0;
+        switch (sorryCard.getCardType()) {
+            case ONE: //one card, need player input
+                System.out.println("You pulled a ONE!\nEither start a pawn or move one pawn 1 space forward.");
+                //give the player the option
+                while(true) {
+                    try {
+                        System.out.println("Do you wish to 1. start a pawn or 2. Move the pawn forward 1?");
+                        playerChoice = input.nextInt();
+                        
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid entry. Enter a number: ");
+                        input.next();
+                    }
+                    if((playerChoice != 1)&&(playerChoice != 2)) {
+                        System.out.println("Invalid option. Enter either a 1 or a 2: ");
+                        playerChoice = input.nextInt();
+                    }
+                    break;
+                }
+                if (playerChoice == 1) {
+                    //start pawn
+                } else if (playerChoice == 2) {
+                    //move pawn forward 1
+                    moveForward(currentPosition, 1);
+                } 
+                break;
+
+            case TWO: //two card, needs player input
+                System.out.println("You pulled a TWO!\nEither start a pawn or move one pawn 2 spaces forward, and DRAW AGAIN");
+                //give player option on what to do
+                while(true) {
+                    try {
+                        System.out.println("Do you wish to 1. start a pawn or 2. Move the pawn forward 2 spaces?");
+                        playerChoice = input.nextInt();
+                        
+                    } catch (InputMismatchException e) { //errror checking
+                        System.out.println("Invalid entry. Enter a number: ");
+                        input.next();
+                    }
+                    if((playerChoice != 1)&&(playerChoice != 2)) { //error checking
+                        System.out.println("Invalid option. Enter either a 1 or a 2: ");
+                        playerChoice = input.nextInt();
+                    }
+                    break;
+                }
+                if (playerChoice == 1) {
+                    //start pawn
+                } else if (playerChoice == 2) {
+                    //move pawn forward 2
+                }
+                //ADD DRAW CARD METHOD
+                break;
+
+            case THREE: //three card, no player input
+                System.out.println("You pulled a THREE!\nMove one pawn 3 spaces forward!");
+                //move the pawn forward three spaces
+                moveForward(currentPosition, 3);
+                break;
+            case FOUR: //four card, no player input
+                System.out.println("You pulled a FOUR!\nMove one pawn backward 4 spaces!");
+                //move the pawn backward four spaces
+                moveBackward(currentPosition, 4);
+                break;
+            case FIVE: //five card, no player input
+                System.out.println("You pulled a FIVE!\nMove one pawn 5 spaces forward!");
+                //move the pawn forward five spaces
+                moveForward(currentPosition, 5);
+                break;
+
+            case SEVEN: //seven card, player input needed
+                System.out.println("You pulled a SEVEN!\nEither move one pawn forward 7 spaces OR split the move between two pawns!");
+                //give player option on what to do
+                while(true) {
+                    try {
+                        System.out.println("Do you wish to 1. move forward 7 spaces or 2. split the move between two pawns?");
+                        playerChoice = input.nextInt();
+                        
+                    } catch (InputMismatchException e) { //error checking
+                        System.out.println("Invalid entry. Enter a number: ");
+                        input.next();
+                    }
+                    if((playerChoice != 1)&&(playerChoice != 2)) { //error checking
+                        System.out.println("Invalid option. Enter either a 1 or a 2: ");
+                        playerChoice = input.nextInt();
+                    }
+                    break;
+                }
+                if (playerChoice == 1) {
+                    //move forward seven paces
+                    moveForward(currentPosition, 7);
+                } else if (playerChoice == 2) {
+                    //split move between two pawns
+                } 
+                break;
+                
+            case EIGHT: //eight card, no player input
+                System.out.println("You pulled a EIGHT!\nMove one pawn forward 8 spaces!");
+                //move the pawn forward eight spaces
+                moveForward(currentPosition, 8);
+                break;
+
+            case TEN:
+                System.out.println("You pulled a TEN!\nEither move one pawn forward 10 spaces OR move one pawn backward one space!");
+                //give player option on what to do
+                while(true) {
+                    try {
+                        System.out.println("Do you wish to 1. move one pawn forward 10 spaces or 2. move one pawn backward one space?");
+                        playerChoice = input.nextInt();
+                    } catch (InputMismatchException e) { //error checking
+                        System.out.println("Invalid entry. Enter a number: ");
+                        input.next();
+                    }
+                    if((playerChoice != 1)&&(playerChoice != 2)) { //error checking
+                        System.out.println("Invalid option. Enter either a 1 or a 2: ");
+                        playerChoice = input.nextInt();
+                    }
+                    break;
+                }
+                if (playerChoice == 1) {
+                    //move forward 10
+                    moveForward(currentPosition, 10);
+                } else if (playerChoice == 2) {
+                    //move backward 1
+                    moveBackward(currentPosition, 1);
+                } 
+                break;
+
+            case ELEVEN:
+                System.out.println("You pulled a ELEVEN!\nMove pawn forward 10 spaces OR switch one of your pawns with one of the opponent’s");
+                //give player option on what to do
+                
+                while(true) {
+                    try {
+                        System.out.println("Do you wish to 1. move one pawn forward 10 spaces or 2. switch one of your pawns with one of your oppoenent's?");
+                        playerChoice = input.nextInt();
+                        
+                    } catch (InputMismatchException e) { //error checking
+                        System.out.println("Invalid entry. Enter a number: ");
+                        input.next();
+                    }
+                    if((playerChoice != 1)&&(playerChoice != 2)) { //error checking
+                        System.out.println("Invalid option. Enter either a 1 or a 2: ");
+                        playerChoice = input.nextInt();
+                    }
+                    break;
+                }
+                if (playerChoice == 1) {
+                    //move pawn foward 10 spaces
+                    moveForward(currentPosition, 10);
+                } else if (playerChoice == 2) {
+                    //switch pawn with one of opponents   
+                }
+                break;
+
+            case TWELVE: //twelve card, no player input
+                System.out.println("You pulled a TWELVE!\nMove one pawn forward 12 spaces");
+                moveForward(currentPosition, 12);
+                break;
+
+            case SORRY:
+                System.out.println("You pulled a SORRY CARD!\nTake one pawn from start, replace it with one of your oppenent's pawn!");
+                 //give player option on what to do
+
+            default:
+                break;
+        }
+    } //end of printCard method
+
+    
+}//end class BoardGame-nm
