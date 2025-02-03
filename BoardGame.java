@@ -114,21 +114,21 @@ public class BoardGame {
         System.out.println("C = computer start pt, Y = your start pt, # = computer pawn, * = player pawn");
 
         //create top horizontal row (spaces 1-16 going left to right)
-        for (int i = 0; i < 16; i++){//16 spaces across
+        for (int i = 0; i < 16; i++) {//16 spaces across
             outer:
             if(i == 4){
-                for(int pawn: compPos){
-                    if(pawn == 5) {
+                for(int pawn: compPos){ //check computer pawns
+                    if(pawn == 5) {//if pawn on computer start pt
                         System.out.print("|#");
-                        break outer;
+                        break outer; //move to next element in outermost for loop
                     } //if theres a computer pawn on its start pt
-                }
+                }//end for
                 System.out.print("|C"); //print C to signify computer start pt
             } else { //spots that aren't start pt
                 for(int pawn: userPos){ //print user pawns
                     if(pawn == i+1) { //adding one because board counts from 1
                         System.out.print("|*");
-                        break outer;
+                        break outer; //move to next element in outermost for loop
                     }//end if
                 }//end for
                 System.out.print("|_");
