@@ -110,6 +110,8 @@ public class BoardGame {
 
     //print the current board
     public void printBoard(int[] userPos, int[] compPos) {
+        boolean placed = false;//to check if pawn is on spot
+
         //print key
         System.out.println("C = computer start pt, Y = your start pt, # = computer pawn, * = player pawn");
 
@@ -141,7 +143,7 @@ public class BoardGame {
         //create left and right columns and top safety zone
         int rightPos = 17;//to work through right column values
         for (int t = 60; t >= 56; t--) {//5 columns
-            boolean placed = false;//to check if pawn is on spot
+            placed = false;//to check if pawn is on spot
             //print left column (60-56)
             for (int i = 0; i < 4; i++) {//traverse compPos and userPos arrays
                 if (compPos[i] == t){//if computer pawn on spot
@@ -178,8 +180,24 @@ public class BoardGame {
         }//end for loop
 
         //create left and right columns and computer home zone
-        for (int i = 0; i < 2; i++) {
-            System.out.print("|_|");//left column (spaces 55-54 top to bottom)
+        rightPos = 22; //starting pt for right column
+        for (int i = 55; i >= 54; i--) {
+            placed = false;//default to blank spot
+            //LEFT COLUMN (spaces 55-54 top to bottom)
+            for(int j = 0; j < 4; j++){//traverse computer and user arrays
+                if(userPos[j] == i ){//place user pawn
+                    System.out.print("|*|");
+                    placed = true;
+                } else if (compPos[j] == i) {//place computer pawn
+                    System.out.print("|#|");
+                    placed = true;
+                }//end if 
+            }//end for
+            if(!placed){//if space is empty
+                System.out.print("|_|");//left column 
+            }//end if
+            //END LEFT COLUMN
+
             System.out.print(" ");//space between left column and computer home
             System.out.print("|  ");//left side computer home
             System.out.print(" |");//right side computer home
