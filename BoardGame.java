@@ -110,6 +110,9 @@ public class BoardGame {
 
     //print the current board
     public void printBoard(int[] userPos, int[] compPos) {
+        //print key
+        System.out.println("C = computer start pt, Y = your start pt, # = computer pawn, * = player pawn");
+
         //create top horizontal row (spaces 1-16 going left to right)
         for (int i = 0; i < 16; i++){//16 spaces across
             if(i == 4){
@@ -136,8 +139,8 @@ public class BoardGame {
         for (int i = 0; i < 2; i++) {
             System.out.print("|_|");//left column (spaces 55-54 top to bottom)
             System.out.print(" ");//space between left column and computer home
-            System.out.print("|* ");//left side computer home
-            System.out.print("*|");//right side computer home
+            System.out.print("|# ");//left side computer home
+            System.out.print("#|");//right side computer home
             for(int k = 0; k < 21; k++){//spaces between computer home and right column
                 System.out.print(" ");
             }//end for loop
@@ -171,7 +174,14 @@ public class BoardGame {
 
         //create bottom row (spaces 31-46 going right to left)
         for (int i = 0; i < 16; i++){//16 spaces across (46-31)
-            if (i == 11){
+            outer:
+            if (i == 11){//user start pt
+                for (int pawn : userPos) {//check userPos array
+                    if(pawn == 35) {//if pawn is on start pt
+                        System.out.print("|*");
+                        break outer;
+                    }//end if/else
+                }//end for loop
                 System.out.print("|Y"); //signifies user start point at space 35
             } else {
                 System.out.print("|_");
