@@ -4,10 +4,10 @@
 public class Main {
     public static void main(String[] args) {
         //arrays for user and computer pawn positions
-        int[] userPawnPos = new int[4];
-        int[] compPawnPos = new int[4];
+        int[] userPos = new int[4];
+        int[] compPos = new int[4];
         BoardGame boardGame = new BoardGame();
-        boardGame.createBoard();
+        boardGame.printBoard(userPos, compPos);
         
         boardGame.createBoardLinkedList();
 

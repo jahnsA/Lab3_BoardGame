@@ -108,8 +108,8 @@ public class BoardGame {
         } while (current != head);
     }//end of test code method
 
-    //create a blank board
-    public void createBoard() {
+    //print the current board
+    public void printBoard(int[] userPos, int[] compPos) {
         //create top horizontal row
         for (int i = 0; i < 16; i++){//16 spaces across
             if(i == 4){
