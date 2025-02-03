@@ -117,13 +117,16 @@ public class BoardGame {
         for (int i = 0; i < 16; i++) {//16 spaces across
             outer:
             if(i == 4){
-                for(int pawn: compPos){ //check computer pawns
-                    if(pawn == 5) {//if pawn on computer start pt
+                for(int pawn = 0; pawn < 4; pawn++){ //check computer and user pawn arrays
+                    if(compPos[pawn] == i+1) {//if computer pawn on computer start pt
                         System.out.print("|#");
                         break outer; //move to next element in outermost for loop
+                    } else if (userPos[pawn] == i+1) {//if user pawn on 
+                        System.out.print("|*");
+                        break outer;//move to next element in outermost for loop
                     } //if theres a computer pawn on its start pt
                 }//end for
-                System.out.print("|C"); //print C to signify computer start pt
+                System.out.print("|C"); //print C to signify computer start pt (if no pawns there)
             } else { //spots that aren't start pt
                 for(int pawn: userPos){ //print user pawns
                     if(pawn == i+1) { //adding one because board counts from 1
