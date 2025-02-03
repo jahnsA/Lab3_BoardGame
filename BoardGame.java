@@ -115,28 +115,27 @@ public class BoardGame {
 
         //create top horizontal row (spaces 1-16 going left to right)
         for (int i = 0; i < 16; i++) {//16 spaces across
-            outer:
-            if(i == 4){
+            outer://so we can break out of while loop specifically
+            while(true) {
                 for(int pawn = 0; pawn < 4; pawn++){ //check computer and user pawn arrays
                     if(compPos[pawn] == i+1) {//if computer pawn on computer start pt
                         System.out.print("|#");
-                        break outer; //move to next element in outermost for loop
+                        break outer;//move to next element in outermost for loop
                     } else if (userPos[pawn] == i+1) {//if user pawn on 
                         System.out.print("|*");
                         break outer;//move to next element in outermost for loop
-                    } //if theres a computer pawn on its start pt
+                    }///end if/else
                 }//end for
-                System.out.print("|C"); //print C to signify computer start pt (if no pawns there)
-            } else { //spots that aren't start pt
-                for(int pawn: userPos){ //print user pawns
-                    if(pawn == i+1) { //adding one because board counts from 1
-                        System.out.print("|*");
-                        break outer; //move to next element in outermost for loop
-                    }//end if
-                }//end for
-                System.out.print("|_");
-            }//end if/else
-        }//end for loop
+                //if no pawn on this pt
+                if (i==4){ //print C to indicate computer start pt
+                    System.out.print("|C");
+                    break outer;//move to next element in outermost for loop
+                } else {//normal spot
+                    System.out.print("|_");
+                    break outer;//move to next element in outermost for loop
+                }//end if/else
+            }//end while loop
+        }//end for
         System.out.println("|");//close top row and start new line
 
         //create left and right columns and top safety zone
