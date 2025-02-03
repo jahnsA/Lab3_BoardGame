@@ -110,7 +110,7 @@ public class BoardGame {
 
     //print the current board
     public void printBoard(int[] userPos, int[] compPos) {
-        //create top horizontal row
+        //create top horizontal row (spaces 1-16 going left to right)
         for (int i = 0; i < 16; i++){//16 spaces across
             if(i == 4){
                 System.out.print("|C"); //print C to signify computer start pt
@@ -122,31 +122,31 @@ public class BoardGame {
 
         //create left and right columns and top safety zone
         for (int t = 0; t < 5; t++) {//5 columns of safety zone
-            System.out.print("|_| ");//left column 
+            System.out.print("|_| ");//left column (60 to 56 going from top to bottom)
             System.out.print("|_|");//safety zone
             //print spaces in between columns
             for (int y = 0; y < 23; y++){
                 System.out.print(" ");
             }//end for loop
             //print right column
-            System.out.println("|_|");
+            System.out.println("|_|"); //spaces (17-21 from top to bottom)
         }//end for loop
 
         //create left and right columns and computer home zone
         for (int i = 0; i < 2; i++) {
-            System.out.print("|_|");//left column
+            System.out.print("|_|");//left column (spaces 55-54 top to bottom)
             System.out.print(" ");//space between left column and computer home
             System.out.print("|* ");//left side computer home
             System.out.print("*|");//right side computer home
             for(int k = 0; k < 21; k++){//spaces between computer home and right column
                 System.out.print(" ");
             }//end for loop
-            System.out.println("|_|");//right column
+            System.out.println("|_|");//right column (22-23 top to bottom)
         }//end for loop
 
         //columns and user home zone
         for (int t = 0; t < 2; t++) {
-            System.out.print("|_|");//left column
+            System.out.print("|_|");//left column (spaces 53-52)
             //print spaces in between left column and user home zone
             for (int y = 0; y < 21; y++){
                 System.out.print(" ");
@@ -154,25 +154,25 @@ public class BoardGame {
             System.out.print("|* ");//left side home zone
             System.out.print("*|");//right side home zone
             System.out.print(" ");//space between home zone and right column
-            System.out.println("|_|");//right column
+            System.out.println("|_|");//right column (24-25)
         }//end for loop
 
         //create left and right columns and botttom safety zone
         for (int t = 0; t < 5; t++) {
-            System.out.print("|_|");//left column
+            System.out.print("|_|");//left column (51-47)
             //print spaces in between left column and safety zone
             for (int y = 0; y < 23; y++){
                 System.out.print(" ");
             }//end for loop
             //print safety zone and right column
             System.out.print("|_| ");//safety zone
-            System.out.println("|_|");//right column
+            System.out.println("|_|");//right column (26-30)
         }//end for loop
 
         //create bottom row (spaces 31-46 going right to left)
-        for (int i = 0; i < 16; i++){//16 spaces across
+        for (int i = 0; i < 16; i++){//16 spaces across (46-31)
             if (i == 11){
-                System.out.print("|Y"); //signifies user start point
+                System.out.print("|Y"); //signifies user start point at space 35
             } else {
                 System.out.print("|_");
             }//end if/else
