@@ -115,7 +115,14 @@ public class BoardGame {
 
         //create top horizontal row (spaces 1-16 going left to right)
         for (int i = 0; i < 16; i++){//16 spaces across
+            outer:
             if(i == 4){
+                for(int pawn: compPos){
+                    if(pawn == 5) {
+                        System.out.print("|#");
+                        break outer;
+                    } //if theres a computer pawn on its start pt
+                }
                 System.out.print("|C"); //print C to signify computer start pt
             } else{
                 System.out.print("|_");
@@ -179,7 +186,7 @@ public class BoardGame {
                 for (int pawn : userPos) {//check userPos array
                     if(pawn == 35) {//if pawn is on start pt
                         System.out.print("|*");
-                        break outer;
+                        break outer;//break out of outer if statement if you find a pawn on start pt
                     }//end if/else
                 }//end for loop
                 System.out.print("|Y"); //signifies user start point at space 35

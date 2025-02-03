@@ -6,7 +6,11 @@ public class Main {
         //arrays for user and computer pawn positions
         int[] userPos = new int[4];
         int[] compPos = new int[4];
-        userPos[0] = 35; //test code to put a user pawn on start pt
+        //TEST CODE
+        userPos[0] = 35; //put a user pawn on start pt
+        compPos[0] = 5; //put a computer pawn on start pt
+        //END TEST CODE
+
         BoardGame boardGame = new BoardGame();
         boardGame.printBoard(userPos, compPos);
         
