@@ -12,23 +12,27 @@ public class Main {
         boardGame.createBoardLinkedList();
 
         System.out.println();
-        boardGame.printoutLinkedList(); //testing linkedlist worked
-/*
-|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|
+        //boardGame.printoutLinkedList(); //testing linkedlist worked
+/* 
+C = computer start pt
+Y = your start pt      
+|_|_|_|_|C|_|_|_|_|_|_|_|_|_|_|_|
 |_| |_|                       |_|
 |_| |_|                       |_|
 |_| |_|                       |_|
 |_| |_|                       |_|
 |_| |_|                       |_|
 |_| |* *|                     |_|
-|_| |* *|                YOU  |_|
-|_| COMP                |   | |_|
-|_|                     |   | |_|
+|_| |* *|                     |_|
+|_| COMP                |H O| |_|
+|_|                     |M E| |_|
 |_|                       |_| |_|
 |_|                       |_| |_|
 |_|                       |_| |_|
 |_|                       |_| |_|
 |_|                       |_| |_|
-|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|  */ 
+|_|_|_|_|_|_|_|_|_|_|_|_|Y|_|_|_|
+                         ^
+                          */ 
     }//end main method
 }//end class Main

@@ -112,7 +112,11 @@ public class BoardGame {
     public void createBoard(){
         //create top horizontal row
         for (int i = 0; i < 16; i++){//16 spaces across
-            System.out.print("|_");
+            if(i == 4){
+                System.out.print("|C"); //print C to signify computer start pt
+            } else{
+                System.out.print("|_");
+            }//end if/else
         }//end for loop
         System.out.println("|");//close top row and start new line
 
@@ -149,10 +153,16 @@ public class BoardGame {
             System.out.println("|_| |_|");
         }//end for loop
 
-        //create bottom horizontal row
+        //create bottom row (spaces 31-46 going right to left)
         for (int i = 0; i < 16; i++){//16 spaces across
-            System.out.print("|_");
+            if (i == 11){
+                System.out.print("|Y");
+            } else {
+                System.out.print("|_");
+            }
         }//end for loop
+        //close board
+        System.out.println("|");
     }//end createBoard
 
     //method that moves the pawn forward a certain amount of spaces
