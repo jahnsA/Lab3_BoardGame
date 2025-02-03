@@ -7,10 +7,10 @@ public class Main {
         int[] userPos = new int[4];
         int[] compPos = new int[4];
         //TEST CODE
-        userPos[0] = 35; //put a user pawn on start pt
-        //userPos[1] = 16;
+        userPos[0] = 5;
+        userPos[1] = 18;
+        compPos[0]=58;
 
-        //compPos[3] = 5; //put a computer pawn on start pt
         //END TEST CODE
 
         BoardGame boardGame = new BoardGame();

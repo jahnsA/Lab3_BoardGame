@@ -114,20 +114,20 @@ public class BoardGame {
         System.out.println("C = computer start pt, Y = your start pt, # = computer pawn, * = player pawn");
 
         //create top horizontal row (spaces 1-16 going left to right)
-        for (int i = 0; i < 16; i++) {//16 spaces across
+        for (int i = 1; i <= 16; i++) {//16 spaces across
             outer://so we can break out of while loop specifically
             while(true) {
                 for(int pawn = 0; pawn < 4; pawn++){ //check computer and user pawn arrays
-                    if(compPos[pawn] == i+1) {//if computer pawn on computer start pt
+                    if(compPos[pawn] == i) {//if computer pawn on computer start pt
                         System.out.print("|#");
                         break outer;//move to next element in outermost for loop
-                    } else if (userPos[pawn] == i+1) {//if user pawn on 
+                    } else if (userPos[pawn] == i) {//if user pawn on 
                         System.out.print("|*");
                         break outer;//move to next element in outermost for loop
                     }///end if/else
                 }//end for
                 //if no pawn on this pt
-                if (i==4){ //print C to indicate computer start pt
+                if (i==5){ //print C to indicate computer start pt
                     System.out.print("|C");
                     break outer;//move to next element in outermost for loop
                 } else {//normal spot
@@ -139,15 +139,41 @@ public class BoardGame {
         System.out.println("|");//close top row and start new line
 
         //create left and right columns and top safety zone
-        for (int t = 0; t < 5; t++) {//5 columns of safety zone
-            System.out.print("|_| ");//left column (60 to 56 going from top to bottom)
+        int rightPos = 17;//to work through right column values
+        for (int t = 60; t >= 56; t--) {//5 columns of safety zone
+            outer://so we can break out of while loop
+            while(true){//print left column (60-56)
+                for (int i = 0; i < 4; i++) {//traverse compPos and userPos arrays
+                    if (compPos[i] == t){//if computer pawn on spot
+                        System.out.print("|#| ");
+                        break outer;
+                    } else if (userPos[i] == t) {//if user pawn on spot
+                        System.out.print("|*| ");
+                        break outer;
+                    }//end if
+                }//end for
+                System.out.print("|_| ");//if empty spot
+                break outer;
+            }//end while
             System.out.print("|_|");//safety zone
             //print spaces in between columns
             for (int y = 0; y < 23; y++){
                 System.out.print(" ");
             }//end for loop
-            //print right column
-            System.out.println("|_|"); //spaces (17-21 from top to bottom)
+            while(true){//right column spaces 17-21
+                for (int i = 0; i < 4; i++) {//traverse user and comp arrays
+                    if (userPos[i] == rightPos){
+                        System.out.println("|*|");
+                        break;
+                    } else if (compPos[i] == rightPos) {
+                        System.out.println("|#|");
+                        break;
+                    }//end if/else
+                }//end for
+                System.out.println("|_|");
+                break;
+            }//end while loop
+            rightPos++; //increase to move down right column
         }//end for loop
 
         //create left and right columns and computer home zone
