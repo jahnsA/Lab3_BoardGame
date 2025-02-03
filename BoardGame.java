@@ -1,8 +1,7 @@
 import java.security.SecureRandom;
 import java.util.InputMismatchException;
-import java.util.LinkedList;
-import java.util.Stack;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class BoardGame {
     private static final SecureRandom randomNumbers = new SecureRandom();
@@ -353,6 +352,11 @@ public class BoardGame {
                 break;
         }
     } //end of printCard method
+
+    //player draws a card
+    public void drawCard(){
+
+    }
 
     
 }//end class BoardGame-nm
