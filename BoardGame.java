@@ -124,7 +124,13 @@ public class BoardGame {
                     } //if theres a computer pawn on its start pt
                 }
                 System.out.print("|C"); //print C to signify computer start pt
-            } else{
+            } else { //spots that aren't start pt
+                for(int pawn: userPos){ //print user pawns
+                    if(pawn == i+1) { //adding one because board counts from 1
+                        System.out.print("|*");
+                        break outer;
+                    }//end if
+                }//end for
                 System.out.print("|_");
             }//end if/else
         }//end for loop
@@ -146,8 +152,8 @@ public class BoardGame {
         for (int i = 0; i < 2; i++) {
             System.out.print("|_|");//left column (spaces 55-54 top to bottom)
             System.out.print(" ");//space between left column and computer home
-            System.out.print("|# ");//left side computer home
-            System.out.print("#|");//right side computer home
+            System.out.print("|  ");//left side computer home
+            System.out.print(" |");//right side computer home
             for(int k = 0; k < 21; k++){//spaces between computer home and right column
                 System.out.print(" ");
             }//end for loop
@@ -161,8 +167,8 @@ public class BoardGame {
             for (int y = 0; y < 21; y++){
                 System.out.print(" ");
             }//end for loop
-            System.out.print("|* ");//left side home zone
-            System.out.print("*|");//right side home zone
+            System.out.print("|  ");//left side home zone
+            System.out.print(" |");//right side home zone
             System.out.print(" ");//space between home zone and right column
             System.out.println("|_|");//right column (24-25)
         }//end for loop
