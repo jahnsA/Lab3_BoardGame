@@ -117,29 +117,6 @@ public class BoardGame {
         //print top row (spaces 1-16)
         printRow(1, 16, 'C', compPos, userPos);
 
-        //create top horizontal row (spaces 1-16 going left to right)
-        /*for (int i = 1; i <= 16; i++) {//16 spaces across
-            placed = false;
-            for(int pawn = 0; pawn < 4; pawn++){ //check computer and user pawn arrays
-                if(compPos[pawn] == i) {//if computer pawn on computer start pt
-                    System.out.print("|#");
-                    placed = true;
-                } else if (userPos[pawn] == i) {//if user pawn on 
-                    System.out.print("|*");
-                    placed = true;
-                }///end if/else
-            }//end for
-            //if no pawn on this pt
-            if (placed == false){
-                if (i==5){ //print C to indicate computer start pt
-                    System.out.print("|C");
-                } else {//normal spot
-                    System.out.print("|_");
-                }//end if/else
-            }//end outer if
-        }//end for
-        System.out.println("|");//close top row and start new line*/
-
         //create left and right columns and top safety zone
         int rightPos = 17;//to work through right column values
         for (int t = 60; t >= 56; t--) {//5 columns
@@ -220,12 +197,11 @@ public class BoardGame {
             }//end if
             rightPos++;
         }//end for loop
-
-        //columns and user home zone
+        
         rightPos = 24;//resetting to new value
-        for (int t = 53; t >= 52; t--) {
+        //columns and user home zone
+        for (int t = 53; t >= 52; t--) {//LEFT COLUMN (53-52)
             placed = false;
-            //LEFT COLUMN (53-52)
             for(int i = 0; i < 4; i++){
                 if(userPos[i] == t){//place user pawn
                     System.out.print("|*|");
@@ -253,8 +229,10 @@ public class BoardGame {
             for(int i = 0; i < 4; i++){
                 if(userPos[i] == rightPos){
                     System.out.println("|*|");
+                    placed = true;
                 } else if(compPos[i] == rightPos){
                     System.out.println("|#|");
+                    placed = true;
                 }//end if 
             }//end for loop
             rightPos++;
@@ -275,7 +253,7 @@ public class BoardGame {
             System.out.println("|_|");//right column (26-30)
         }//end for loop
 
-        //create bottom row (spaces 31-46 going right to left)
+        //create bottom row (spaces 46-31)
         for (int i = 0; i < 16; i++){//16 spaces across (46-31)
             outer:
             if (i == 11){//user start pt
@@ -294,10 +272,12 @@ public class BoardGame {
         System.out.println("|");
     }//end createBoard
 
-    //helper method for create board: PRINT ROW
+    //helper method for create board: PRINT ROW (currently only works for top row)
     //takes in leftmost space #, rightmost space #, char to indicate start spot, computer position array, and user position array
     public void printRow (int left, int right, char startChar, int[]compPos, int[] userPos) {
+        //left: lowest value, right: highest value
         //add case for if left is more than right
+        //change direction of for loop and change where char is printed
         for (int i = left; i <= right; i++) {//16 spaces across
             boolean placed = false;//resets to placed for each new space
             for(int pawn = 0; pawn < 4; pawn++){ //check computer and user pawn arrays
