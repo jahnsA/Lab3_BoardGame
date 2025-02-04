@@ -7,10 +7,8 @@ public class Main {
         int[] userPos = new int[4];
         int[] compPos = new int[4];
         //TEST CODE
-        userPos[0] = 6;
-        userPos[1] =24;
-        compPos[1] = 36;
-        compPos[0]= 5;
+        compPos[0] =17;
+        compPos[1] =20;
 
         //END TEST CODE
 
