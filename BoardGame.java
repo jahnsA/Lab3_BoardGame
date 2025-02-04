@@ -204,7 +204,20 @@ public class BoardGame {
             for(int k = 0; k < 21; k++){//spaces between computer home and right column
                 System.out.print(" ");
             }//end for loop
-            System.out.println("|_|");//right column (22-23 top to bottom)
+            //RIGHT COLUMN (22-23)
+            for(int j = 0; j < 4; j++){//traverse computer and user arrays
+                if(userPos[j] == rightPos){//place user pawn
+                    System.out.println("|*|");
+                    placed = true;
+                } else if (compPos[j] == rightPos) {//place computer pawn
+                    System.out.println("|#|");
+                    placed = true;
+                }//end if 
+            }//end for
+            if(!placed){//if space is empty
+                System.out.println("|_|");
+            }//end if
+            rightPos++;
         }//end for loop
 
         //columns and user home zone
