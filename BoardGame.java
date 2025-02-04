@@ -204,6 +204,7 @@ public class BoardGame {
             for(int k = 0; k < 21; k++){//spaces between computer home and right column
                 System.out.print(" ");
             }//end for loop
+
             //RIGHT COLUMN (22-23)
             for(int j = 0; j < 4; j++){//traverse computer and user arrays
                 if(userPos[j] == rightPos){//place user pawn
@@ -221,8 +222,24 @@ public class BoardGame {
         }//end for loop
 
         //columns and user home zone
-        for (int t = 0; t < 2; t++) {
-            System.out.print("|_|");//left column (spaces 53-52)
+        rightPos = 24;//resetting to new value
+        for (int t = 53; t >= 52; t--) {
+            placed = false;
+            //LEFT COLUMN (53-52)
+            for(int i = 0; i < 4; i++){
+                if(userPos[i] == t){//place user pawn
+                    System.out.print("|*|");
+                    placed = true;
+                } else if (compPos[i] == t) {//place computer pawn
+                    System.out.print("|#|");
+                    placed = true;
+                }//end if 
+            }//end for
+            if (!placed){
+                System.out.print("|_|");
+            }//end if
+            //END LEFT COLUMN
+
             //print spaces in between left column and user home zone
             for (int y = 0; y < 21; y++){
                 System.out.print(" ");
@@ -230,7 +247,20 @@ public class BoardGame {
             System.out.print("|  ");//left side home zone
             System.out.print(" |");//right side home zone
             System.out.print(" ");//space between home zone and right column
-            System.out.println("|_|");//right column (24-25)
+
+            //RIGHT COLUMN (24-25)
+            placed = false;
+            for(int i = 0; i < 4; i++){
+                if(userPos[i] == rightPos){
+                    System.out.println("|*|");
+                } else if(compPos[i] == rightPos){
+                    System.out.println("|#|");
+                }//end if 
+            }//end for loop
+            rightPos++;
+            if(!placed){
+                System.out.println("|_|");//right column (24-25)
+            }//end if
         }//end for loop
 
         //create left and right columns and botttom safety zone
