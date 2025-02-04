@@ -9,7 +9,7 @@ public class Main {
         //TEST CODE
         userPos[0] = 52;
         compPos[1] = 25;
-        //compPos[0]= 54;
+        compPos[0]= 5;
 
         //END TEST CODE
 
