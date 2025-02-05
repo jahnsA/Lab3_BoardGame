@@ -341,11 +341,15 @@ public class BoardGame {
                     }
                     break;
                 }
+                System.out.println("You entered: " + playerChoice);
+                
                 if (playerChoice == 1) {
                     //start pawn
+                    System.out.println(1);
                 } else if (playerChoice == 2) {
                     //move pawn forward 1
                     moveForward(currentPosition, 1);
+                    System.out.println(2);
                 } 
                 break;
 
@@ -367,6 +371,7 @@ public class BoardGame {
                     }
                     break;
                 }
+                System.out.println("You entered: " + playerChoice);
                 if (playerChoice == 1) {
                     //start pawn
                 } else if (playerChoice == 2) {
@@ -409,6 +414,8 @@ public class BoardGame {
                     }
                     break;
                 }
+                System.out.println("You entered: " + playerChoice);
+
                 if (playerChoice == 1) {
                     //move forward seven paces
                     moveForward(currentPosition, 7);
@@ -440,6 +447,7 @@ public class BoardGame {
                     }
                     break;
                 }
+                System.out.println("You entered: " + playerChoice);
                 if (playerChoice == 1) {
                     //move forward 10
                     moveForward(currentPosition, 10);
@@ -468,6 +476,7 @@ public class BoardGame {
                     }
                     break;
                 }
+                System.out.println("You entered: " + playerChoice);
                 if (playerChoice == 1) {
                     //move pawn foward 10 spaces
                     moveForward(currentPosition, 10);
@@ -491,8 +500,60 @@ public class BoardGame {
     } //end of printCard method
 
     //player draws a card
-    public void drawCard(){
+    public void drawCard(Stack<Card> sorryDeck){
+        
 
+    }
+
+    ///computer play methods
+    public void computerPlays(Card sorryCard) {
+        switch (sorryCard.getCardType()) {
+            case ONE: //move one spot forward or start pawn
+                
+                break;
+
+            case TWO: //move two spots forward or start pawn
+                
+                break;
+
+            case THREE: //move three spots forward
+                
+                break;
+
+            case FOUR: //move backward four
+                
+                break;
+
+            case FIVE: //move forward five
+                
+                break;
+        
+            case SEVEN: //move forward seven or split move between two pawns
+                
+                break;
+            
+            case EIGHT: //move forward eight spots
+                
+                break;
+        
+            case TEN: //either move forward ten or move backward one 
+                
+                break;
+
+            case ELEVEN: //either move forward ten or move backward one 
+                
+                break;
+            
+            case TWELVE: //move forward 12
+
+                break;
+
+            case SORRY: //switch one pawn with another
+
+                break;
+            default:
+                break;
+        }
     }
 
     
