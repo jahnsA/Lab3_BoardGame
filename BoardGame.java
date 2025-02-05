@@ -63,7 +63,7 @@ public class BoardGame {
     //creates circular double linked list with 60 spaces
     public void createBoardLinkedList() {
         //create first node at beginning
-        BoardNode firstNode = new BoardNode(nodePosition.regularSpot);
+        BoardNode firstNode = new BoardNode(nodePosition.regularSpot, 1);
         //set this node to the head
         head = firstNode;
         //make it a circular linked list
@@ -71,14 +71,14 @@ public class BoardGame {
         firstNode.prev = firstNode;
         //add 59 board nodes to linked list (since 1 is already created)
         for (int i = 0; i < 59; i++){
-            addNode();
+            addNode(i+1);
         }//end for loop
     }//end createBoardLinkedList method
 
-    public void addNode() {
+    public void addNode(int currentNum) {
         //knowing that linked list is not empty didn't check for null head
         //create new node
-        BoardNode newNode = new BoardNode(nodePosition.regularSpot);
+        BoardNode newNode = new BoardNode(nodePosition.regularSpot, currentNum);
         //insert new Node at end
         newNode.prev = head.prev;
         newNode.next = head;
