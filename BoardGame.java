@@ -109,6 +109,7 @@ public class BoardGame {
     }//end of test code method
 
     //print the current board
+    //takes in user and computer pawn position arrays
     public void printBoard(int[] userPos, int[] compPos) {
         //print key
         System.out.println("C = computer start pt, Y = your start pt, # = computer pawn, * = player pawn");

@@ -6,9 +6,11 @@ public class BoardNode {
     nodePosition position;
     BoardNode next;
     BoardNode prev;
+    private int spaceNum;
     
-    public BoardNode(nodePosition position) {
+    public BoardNode(nodePosition position, int spaceNum) {
         this.position = position;
+        this.spaceNum = spaceNum;
         next = null; //points to node in front
         prev = null; //points to node behind
     }
@@ -21,6 +23,14 @@ public class BoardNode {
     //set the node position to another thing
     public void setNodePosition(nodePosition position) {
         this.position = position;
+    }
+
+    public int getSpaceNum() {
+        return this.spaceNum;
+    }
+
+    public void setSpaceNUm(int spaceNum) {
+        this.spaceNum = spaceNum;
     }
 
     //for test code for printing linkedlist
