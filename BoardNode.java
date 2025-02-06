@@ -1,28 +1,13 @@
 
-enum nodePosition {
-    spawnPoint, homeSpot, sliderStartSpot, regularSpot
-} 
-public class BoardNode {
-    nodePosition position;
+ public class BoardNode {
     BoardNode next;
     BoardNode prev;
     private int spaceNum;
     
-    public BoardNode(nodePosition position, int spaceNum) {
-        this.position = position;
+    public BoardNode(int spaceNum) {
         this.spaceNum = spaceNum;
         this.next = null; //points to node in front
         this.prev = null; //points to node behind
-    }
-
-    //return what the node position is
-    public nodePosition getNodePosition() {
-        return this.position;
-    }
-
-    //set the node position to another thing
-    public void setNodePosition(nodePosition position) {
-        this.position = position;
     }
 
     public int getSpaceNum() {
@@ -36,6 +21,6 @@ public class BoardNode {
     //for test code for printing linkedlist
     //delete later bc we probably wont need it for the board 
     public String toString() {
-        return this.position.name();
+        return Integer.toString(this.getSpaceNum());
     }
 }

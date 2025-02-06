@@ -66,13 +66,13 @@ public class BoardGame {
     
     public void createBoardLinkedList() {
         //create node 1
-        head = new BoardNode(nodePosition.regularSpot, 1);
+        head = new BoardNode(1);
         tail = head;//so we can add
         for (int i=2; i<=59; i++){//add nodes 2-59
             insertAtEnd(i);
         }//end for
         //add 60th spot and link to 1st
-        tail.next = new BoardNode(nodePosition.regularSpot, 60);
+        tail.next = new BoardNode(60);
         tail = tail.next;
         tail.next = head;
         head.prev = tail; 
@@ -81,7 +81,7 @@ public class BoardGame {
     //assumes there's already a head node
     //takes in current position
     public void insertAtEnd(int currentPos){
-        BoardNode temp = new BoardNode(nodePosition.regularSpot, currentPos);
+        BoardNode temp = new BoardNode(currentPos);
         tail.next = temp;
         temp.prev = tail;
         tail = temp;
