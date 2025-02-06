@@ -16,10 +16,8 @@ public class BoardGame {
     //create a stack for deck of cards
     Stack<Card> stackedDeck = new Stack<>();
 
-    // Constructor fills deck of cards and initialized head and tail
+    // Constructor fills deck of cards
     public BoardGame() {
-        this.head = null;
-        this.tail = null;
         int arrayPos = 0;
         //add the rest of the deck
         for (CardType i: CardType.values()) { //go through each type of card
@@ -87,7 +85,7 @@ public class BoardGame {
         tail = temp;
     }//end insertAtEnd
 
-    static void printList(BoardNode curr, BoardNode head) {
+    /*static void printList(BoardNode curr, BoardNode head) {
 
         // return if list is empty
         if (head == null) return;
@@ -102,7 +100,7 @@ public class BoardGame {
     }
     public void printList(){
         printList(head, head);
-    }
+    }*/
     //creates circular double linked list with 60 spaces
     /*public void createBoardLinkedList() {
         //create first node at beginning
@@ -133,7 +131,7 @@ public class BoardGame {
     }//end addNode method*/
 
     //helper method to call printoutLinkedList(head)
-    public void printoutLinkedList(){
+   /*public void printoutLinkedList(){
         printoutLinkedList(this.head);
     }
 
@@ -152,7 +150,7 @@ public class BoardGame {
             count++;
             System.out.println();
         } while (current != head);
-    }//end of test code method
+    }//end of test code method*/
 
     //print the current board
     //takes in user and computer pawn position arrays
@@ -512,12 +510,6 @@ public class BoardGame {
         }
     } //end of printCard method
 
-    //player draws a card
-    public void drawCard(Stack<Card> sorryDeck){
-        
-
-    }
-
     ///computer play methods
     public void computerPlays(Card sorryCard) {
         switch (sorryCard.getCardType()) {
@@ -569,5 +561,15 @@ public class BoardGame {
         }
     }
 
+    //start user pawn, takes in user pawn postion array
+    public void startUserPawn(int[] userPos){
+        for (int i = 0; i < 4; i++) {//traverse userPos array
+            if(userPos[i] == 0) {//if pawn hasn't been started
+            //add case for if there is a pawn (user or computer) on user start
+                userPos[i] = 35;
+                break;//break so you only place one pawn
+            }//end if
+        }//end for
+    }//end startUserPawn
     
 }//end class BoardGame-nm

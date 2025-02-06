@@ -1,22 +1,31 @@
+
+
+
+
 public class Main {
     public static void main(String[] args) {
+        BoardGame boardGame = new BoardGame();
+        boardGame.createBoardLinkedList();
+        Card currentCard;
         //arrays for user and computer pawn positions
         int[] userPos = new int[4];
         int[] compPos = new int[4];
-        //TEST CODE
-        compPos[0] =24;
-        compPos[1] =29;
-        userPos[0] = 52;
 
-        //END TEST CODE
+        //Game loop (user only for now)
+        //current card for user (reset each time)
+        //boardGame.stackDeck();
+        //currentCard = boardGame.stackedDeck.pop();//draw a card
+        boardGame.startUserPawn(userPos);
 
-        BoardGame boardGame = new BoardGame();
         boardGame.printBoard(userPos, compPos);
+        System.out.println("User array");
+        for (int i = 0; i < 4; i++) {
+            System.out.println(userPos[i]);
+        }
         
-        boardGame.createBoardLinkedList();
 
         System.out.println();
-        boardGame.printList();
+        //boardGame.printList();
         //boardGame.printoutLinkedList(); //testing linkedlist worked
     }//end main method
 }//end class Main
