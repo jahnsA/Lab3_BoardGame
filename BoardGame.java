@@ -8,15 +8,18 @@ public class BoardGame {
     private static final int NUMBER_OF_CARDS = 45;
     private Stack<Card> Deck;
 
-    private BoardNode head; //top of linked list
+    BoardNode head; //top of linked list
+    BoardNode tail;//end of linked list (points to head)
 
     //creates an array of Card objects (deck)
     private Card[] deck = new Card[NUMBER_OF_CARDS]; //Card references
     //create a stack for deck of cards
     Stack<Card> stackedDeck = new Stack<>();
 
-    // Constructor fills deck of cards
+    // Constructor fills deck of cards and initialized head and tail
     public BoardGame() {
+        this.head = null;
+        this.tail = null;
         int arrayPos = 0;
         //add the rest of the deck
         for (CardType i: CardType.values()) { //go through each type of card
@@ -60,8 +63,48 @@ public class BoardGame {
         }//end for loop
     }//end stackDeck
 
-    //creates circular double linked list with 60 spaces
+    
     public void createBoardLinkedList() {
+        //create node 1
+        head = new BoardNode(nodePosition.regularSpot, 1);
+        tail = head;//so we can add
+        for (int i=2; i<=59; i++){//add nodes 2-59
+            insertAtEnd(i);
+        }//end for
+        //add 60th spot and link to 1st
+        tail.next = new BoardNode(nodePosition.regularSpot, 60);
+        tail = tail.next;
+        tail.next = head;
+        head.prev = tail; 
+    }//end createBoardLinkedList
+
+    //assumes there's already a head node
+    //takes in current position
+    public void insertAtEnd(int currentPos){
+        BoardNode temp = new BoardNode(nodePosition.regularSpot, currentPos);
+        tail.next = temp;
+        temp.prev = tail;
+        tail = temp;
+    }//end insertAtEnd
+
+    static void printList(BoardNode curr, BoardNode head) {
+
+        // return if list is empty
+        if (head == null) return;
+        
+        System.out.print(curr.getSpaceNum() + " ");
+        
+        if (curr.next == head)
+            return;
+        
+        printList(curr.next, head);
+
+    }
+    public void printList(){
+        printList(head, head);
+    }
+    //creates circular double linked list with 60 spaces
+    /*public void createBoardLinkedList() {
         //create first node at beginning
         BoardNode firstNode = new BoardNode(nodePosition.regularSpot, 1);
         //set this node to the head
@@ -69,12 +112,15 @@ public class BoardGame {
         //make it a circular linked list
         firstNode.next = firstNode;
         firstNode.prev = firstNode;
-        //add 59 board nodes to linked list (since 1 is already created)
-        for (int i = 0; i < 59; i++){
+        //add 58 board nodes to linked list (since 1 is already created)
+        for (int i = 0; i < 58; i++){
             addNode(i+1);
         }//end for loop
+
+        //add 60th node and link to first node to make a circle
     }//end createBoardLinkedList method
 
+    //add new node at end
     public void addNode(int currentNum) {
         //knowing that linked list is not empty didn't check for null head
         //create new node
@@ -84,7 +130,7 @@ public class BoardGame {
         newNode.next = head;
         head.prev.next = newNode;
         head.prev = newNode;
-    }//end addNode method
+    }//end addNode method*/
 
     //helper method to call printoutLinkedList(head)
     public void printoutLinkedList(){

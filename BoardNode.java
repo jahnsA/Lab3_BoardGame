@@ -11,8 +11,8 @@ public class BoardNode {
     public BoardNode(nodePosition position, int spaceNum) {
         this.position = position;
         this.spaceNum = spaceNum;
-        next = null; //points to node in front
-        prev = null; //points to node behind
+        this.next = null; //points to node in front
+        this.prev = null; //points to node behind
     }
 
     //return what the node position is
