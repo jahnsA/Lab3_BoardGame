@@ -16,6 +16,11 @@ public class BoardGame {
     //create a stack for deck of cards
     Stack<Card> stackedDeck = new Stack<>();
 
+    //NOTES: Player start stop is board node #35
+    //player home spot is board node #35
+    //computer start spot is board node #5
+    //computer home spot is board node #3
+
     // Constructor fills deck of cards
     public BoardGame() {
         int arrayPos = 0;
@@ -330,12 +335,18 @@ public class BoardGame {
 
 
     //method that moves the pawn forward a certain amount of spaces
-    public void moveForward(BoardNode currentPositon, int spacesToBeMoved) {
-        if (spacesToBeMoved == 1) {
-            currentPositon = currentPositon.next;
+    public void moveForward(BoardNode currentPositon, int spacesToBeMoved, boolean isComputer) {
+        if (checkIfInHomeSpot(currentPositon, isComputer)== true) {
+            //if it's in the home spot
+            //move it to start of safe zone
         } else {
-            for(int i = 0; i< spacesToBeMoved-1; i++) {
+            //not in home spot, can move
+            if (spacesToBeMoved == 1) {
                 currentPositon = currentPositon.next;
+            } else {
+                for(int i = 0; i< spacesToBeMoved-1; i++) {
+                    currentPositon = currentPositon.next;
+                }
             }
         }
         
@@ -343,6 +354,7 @@ public class BoardGame {
 
     //method that moves the pawn back a certain amount of spaces
     public void moveBackward(BoardNode currentPosition, int spacesToBeMoved) {
+        //won't need a check because it goes backwards not forwards
         if (spacesToBeMoved == 1) {
             currentPosition = currentPosition.prev;
         } else {
@@ -350,15 +362,41 @@ public class BoardGame {
                 currentPosition = currentPosition.prev;
             }
         }
+         
     } //end noveBackward
 
-    //print card that prints card and gives player choices
-    //NEEDS DRAW CARD METHOD, START PAWN FROM START METHOD, SWITCH PAWN POS OF COMPUTER W/ YOURS METHOD
-    //NEED A WAY TO SAVE PLAYERS AND COMPUTERS PAWN POSITIONS
-    //ADD CONSTRUCTOR FOR COMPUTER PAWN?
-    public void printCard(Card sorryCard, BoardNode currentPosition, Scanner input) {
+    public static boolean checkIfCanStartPawn (int[] pawnPos) {
+            
+        for(int i = 0; i < pawnPos.length; i++) {
+            if(pawnPos[i] == 0) { //
+                return true; //can play
+            }
+        }
+        return false; //can't play
+    }
+///computer play methods - takes in the card that was drawn and the computer pawn position arrary that stores their positions
+
+    //create a check if can play method for computer and player to see if they can move that many of spaces
+    public static boolean checkIfCanPlay() {
+        return true;
+
+    }
+    public static boolean checkIfInHomeSpot(BoardNode pawnPos, boolean isComputer) {
+        //if isComputer is true, means it's the computer's pawn
+        //if isComputer is false, mean it's the player's pawn
+        if ((pawnPos.getSpaceNum() == 3)&&(isComputer == true)) { //computer home spot is 3
+            return true;
+        } else if ((pawnPos.getSpaceNum() == 33) &&(isComputer == false)) { //player home spot is 33
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void printCard(Card sorryCard, BoardNode currentPosition, Scanner input, int[] playerPawns) {
         //switch statement to print the values of the cards out?
         int playerChoice = 0;
+        //ASK THE PLAYER WHICH PAWN THEY WANT TO MOVE
         switch (sorryCard.getCardType()) {
             case ONE: //one card, need player input
                 System.out.println("You pulled a ONE!\nEither start a pawn or move one pawn 1 space forward.");
@@ -368,25 +406,30 @@ public class BoardGame {
                         System.out.println("Do you wish to 1. start a pawn or 2. Move the pawn forward 1?");
                         playerChoice = input.nextInt();
                         
-                    } catch (InputMismatchException e) {
+                    } catch (InputMismatchException e) { //error checking
                         System.out.println("Invalid entry. Enter a number: ");
                         input.next();
                     }
-                    if((playerChoice != 1)&&(playerChoice != 2)) {
+                    if((playerChoice != 1)&&(playerChoice != 2)) { //error checking
                         System.out.println("Invalid option. Enter either a 1 or a 2: ");
                         playerChoice = input.nextInt();
                     }
                     break;
                 }
-                System.out.println("You entered: " + playerChoice);
+                System.out.println("You entered: " + playerChoice); //prints out what number you entered
                 
                 if (playerChoice == 1) {
-                    //start pawn
-                    System.out.println(1);
+                    if(checkIfCanStartPawn(playerPawns) == true) {
+                        //then can start pawn
+                        startUserPawn(playerPawns);
+                    } else {
+                        //can't start a pawn, must move pawn
+                        moveForward(currentPosition, 1, false);
+                        
+                    }
                 } else if (playerChoice == 2) {
                     //move pawn forward 1
-                    moveForward(currentPosition, 1);
-                    System.out.println(2);
+                    moveForward(currentPosition, 1, false);
                 } 
                 break;
 
@@ -408,11 +451,19 @@ public class BoardGame {
                     }
                     break;
                 }
-                System.out.println("You entered: " + playerChoice);
+                System.out.println("You entered: " + playerChoice); //prints out what you entered
                 if (playerChoice == 1) {
-                    //start pawn
+                    if(checkIfCanStartPawn(playerPawns) == true) {
+                        //then can start pawn
+                        startUserPawn(playerPawns);
+                    } else {
+                        //can't start a pawn, must move pawn
+                        moveForward(currentPosition, 2, false);
+                        
+                    }
                 } else if (playerChoice == 2) {
                     //move pawn forward 2
+                    moveForward(currentPosition, 2, false);
                 }
                 //ADD DRAW CARD METHOD
                 break;
@@ -420,7 +471,7 @@ public class BoardGame {
             case THREE: //three card, no player input
                 System.out.println("You pulled a THREE!\nMove one pawn 3 spaces forward!");
                 //move the pawn forward three spaces
-                moveForward(currentPosition, 3);
+                moveForward(currentPosition, 3, false);
                 break;
             case FOUR: //four card, no player input
                 System.out.println("You pulled a FOUR!\nMove one pawn backward 4 spaces!");
@@ -430,7 +481,7 @@ public class BoardGame {
             case FIVE: //five card, no player input
                 System.out.println("You pulled a FIVE!\nMove one pawn 5 spaces forward!");
                 //move the pawn forward five spaces
-                moveForward(currentPosition, 5);
+                moveForward(currentPosition, 5, false);
                 break;
 
             case SEVEN: //seven card, player input needed
@@ -455,16 +506,33 @@ public class BoardGame {
 
                 if (playerChoice == 1) {
                     //move forward seven paces
-                    moveForward(currentPosition, 7);
+                    moveForward(currentPosition, 7, false);
                 } else if (playerChoice == 2) {
                     //split move between two pawns
+                    while(true) {
+                        try {
+                            System.out.println("Enter the number of spaces you wish your pawn to move: ");
+                            playerChoice = input.nextInt();
+                            
+                        } catch (InputMismatchException e) { //error checking
+                            System.out.println("Invalid entry. Enter a number: ");
+                            input.next();
+                        }
+                        if((playerChoice < 0)||(playerChoice >= 7 )) { //error checking,
+                            System.out.println("Invalid option. Enter a number between 0-7: ");
+                            playerChoice = input.nextInt();
+                        }
+                        break;
+                    }
+                    moveForward(currentPosition, playerChoice, false); //first pawn
+                    //moveForward(currentPosition, 7-playerChoice, false); //second pawn, diff node -> FIX
                 } 
                 break;
                 
             case EIGHT: //eight card, no player input
                 System.out.println("You pulled a EIGHT!\nMove one pawn forward 8 spaces!");
                 //move the pawn forward eight spaces
-                moveForward(currentPosition, 8);
+                moveForward(currentPosition, 8, false);
                 break;
 
             case TEN:
@@ -487,7 +555,7 @@ public class BoardGame {
                 System.out.println("You entered: " + playerChoice);
                 if (playerChoice == 1) {
                     //move forward 10
-                    moveForward(currentPosition, 10);
+                    moveForward(currentPosition, 10, false);
                 } else if (playerChoice == 2) {
                     //move backward 1
                     moveBackward(currentPosition, 1);
@@ -516,7 +584,7 @@ public class BoardGame {
                 System.out.println("You entered: " + playerChoice);
                 if (playerChoice == 1) {
                     //move pawn foward 10 spaces
-                    moveForward(currentPosition, 10);
+                    moveForward(currentPosition, 10, false);
                 } else if (playerChoice == 2) {
                     //switch pawn with one of opponents   
                 }
@@ -524,7 +592,7 @@ public class BoardGame {
 
             case TWELVE: //twelve card, no player input
                 System.out.println("You pulled a TWELVE!\nMove one pawn forward 12 spaces");
-                moveForward(currentPosition, 12);
+                moveForward(currentPosition, 12, false);
                 break;
 
             case SORRY:
@@ -536,56 +604,96 @@ public class BoardGame {
         }
     } //end of printCard method
 
-    ///computer play methods
-    public void computerPlays(Card sorryCard) {
+    public void computerPlays(Card sorryCard, int[] comPawn, BoardNode comPos) {
+        //iterate through the array and if it is not in start, chose that one to move around the board
+        int pawnNum = 0;
+                
+        for(int i = 0; i< comPawn.length-1; i++) {
+            if (comPawn[i] != 0) {//if not zero, then it has been already started
+                pawnNum = i;
+                break;
+            }
+        }
+        //how to get a boardnode from an index?
+        for (int i = 0; i < comPawn[pawnNum];i++) { //should iterate through the linked list the number of spaces the pawn is in
+            head = head.next;
+        }
+        comPos = head;
+       
         switch (sorryCard.getCardType()) {
             case ONE: //move one spot forward or start pawn
-                
+                if(checkIfCanStartPawn(comPawn) == true) {
+                    //then can start pawn
+                    startUserPawn(comPawn);
+                } else {
+                    //move forward 1
+                    moveForward(comPos, 1, true);
+                }   
                 break;
-
+        
             case TWO: //move two spots forward or start pawn
-                
+                if(checkIfCanStartPawn(comPawn) == true) {
+                    //then can start pawn
+                    startUserPawn(comPawn);
+                } else {
+                    //can't start a pawn, must move pawn
+                    moveForward(comPos, 2, true);
+                }
                 break;
-
+        
             case THREE: //move three spots forward
-                
+                //move the pawn forward three spaces
+                moveForward(comPos, 3, true);
                 break;
-
+        
             case FOUR: //move backward four
-                
+                //move the pawn backward four spaces
+                moveBackward(comPos, 4);
                 break;
-
+        
             case FIVE: //move forward five
-                
+                 //move the pawn forward five spaces
+                moveForward(comPos, 5, true);
                 break;
-        
+                
             case SEVEN: //move forward seven or split move between two pawns
-                
+                //if the pawn can move forward seven then go for seven
+                //if not, split the move between two pawns
+                //see if you can figure out how many spaces they have until the end of the home spot and move it that many spaces
                 break;
-            
+                    
             case EIGHT: //move forward eight spots
+                //move the pawn forward eight spaces
+                moveForward(comPos, 8, true);
+                break;
                 
+            case TEN: //either move forward ten or move backward one 
+                //check if they can move foward ten spaces
+                //if so, then move ten
+                //if not, then move backward one
+                
+
                 break;
         
-            case TEN: //either move forward ten or move backward one 
-                
+            case ELEVEN: //either move forward ten or switch one of your pawns with another
+                //check if they can move forward ten spaces
+                //if so, move ten
+                //if not, move backward one
                 break;
-
-            case ELEVEN: //either move forward ten or move backward one 
-                
-                break;
-            
+                    
             case TWELVE: //move forward 12
-
+                //move pawn forward 12 spaces
+                moveForward(comPos, 12, true);
                 break;
-
+        
             case SORRY: //switch one pawn with another
-
+                //switch computer pawn with opponent pawn
                 break;
             default:
                 break;
-        }
-    }
+                }
+            }
+            
 
     //start user pawn, takes in user pawn postion array
     public void startUserPawn(int[] userPos){
