@@ -158,6 +158,7 @@ public class BoardGame {
         //print key
         System.out.println("C = computer start pt, Y = your start pt, # = computer pawn, * = player pawn");
         //print top row (spaces 1-16)
+        printHoriztonalKey(1, 16);
         printRow(1, 16, compPos, userPos);
 
         //create left and right columns and top safety zone
@@ -302,6 +303,31 @@ public class BoardGame {
         }//end for
         System.out.println("|");//close top row and start new line
     }//end printRow
+
+    //ONLY WORKS FOR TOP ROW
+    public void printHoriztonalKey(int left, int right) {
+        //first row
+        for (int j = left; j<= right; j++){
+            if(j<10){
+                System.out.print("  ");
+            } else {
+                String stringVer = Integer.toString(j);
+                System.out.print(" " + stringVer.charAt(0));
+            }
+        }
+        System.out.println();
+        //second row
+        for (int i = left; i <= right; i++) {
+            if (i<10){//single digit
+                System.out.print(" " + i);
+            } else {
+                String stringVer = Integer.toString(i);
+                System.out.print(" " + stringVer.charAt(1));
+            }
+        }
+        System.out.println();
+    }//end printHorizontalKey
+
 
     //method that moves the pawn forward a certain amount of spaces
     public void moveForward(BoardNode currentPositon, int spacesToBeMoved) {
@@ -565,11 +591,21 @@ public class BoardGame {
     public void startUserPawn(int[] userPos){
         for (int i = 0; i < 4; i++) {//traverse userPos array
             if(userPos[i] == 0) {//if pawn hasn't been started
-            //add case for if there is a pawn (user or computer) on user start
+            //add case for if there is a pawn (user or computer) on user start (in different method?)
                 userPos[i] = 35;
                 break;//break so you only place one pawn
             }//end if
         }//end for
     }//end startUserPawn
+
+    //user chooses which pawn they would like to move
+    //takes in user position array
+    public void choosePawn(int[] userPos){
+        for (int i = 0; i < 4; i++) {//traverse user array
+            if (userPos[i] != 0){
+                System.out.println();
+            }
+        }
+    }
     
 }//end class BoardGame-nm
