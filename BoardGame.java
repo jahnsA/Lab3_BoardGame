@@ -7,9 +7,14 @@ public class BoardGame {
     private static final SecureRandom randomNumbers = new SecureRandom();
     private static final int NUMBER_OF_CARDS = 45;
     private Stack<Card> Deck;
+    private Stack<Card> DiscardPile;
 
-    BoardNode head; //top of linked list
-    BoardNode tail;//end of linked list (points to head)
+    BoardNode head; //top of board linked list
+    BoardNode tail;//end of board linked list (points to head)
+    BoardNode playHead; //head of player list
+    BoardNode playTail; //tail of player list
+    BoardNode compHead; //head of computer lsit
+    BoardNode compTail; //tail of computer list
 
     //creates an array of Card objects (deck)
     private Card[] deck = new Card[NUMBER_OF_CARDS]; //Card references
@@ -737,8 +742,7 @@ public class BoardGame {
             default:
                 break;
                 }
-            }
-            
+    }
 
     //start user pawn, takes in user pawn postion array
     public void startUserPawn(int[] userPos){
@@ -765,5 +769,38 @@ public class BoardGame {
         int choice = scan.nextInt();
         return choice - 1;
     }//end choosePawn
+
+    public void createSafeZones() {
+        //create player safe zone
+        playHead = new BoardNode(61); //creates node 61
+        playTail = playHead;
+        for(int i = 62; i < 66; i++) { //creates nodes 62-65
+            BoardNode playTemp = new BoardNode(i);
+            playTail.next = playTemp;
+            playTemp.prev = playTail;
+            playTail = playTemp;
+        }
+        playTail.next = new BoardNode(66); //create nodes 66
+        playTail = playTail.next;
+
+        //create computer safe zone
+        compHead = new BoardNode(67); //create node 67
+        compTail = compHead;
+        for(int j = 68; j < 73; j++) { //creates nodes 68-72
+            BoardNode compTemp = new BoardNode(j);
+            compTail.next = compTemp;
+            compTemp.prev = compTail;
+            compTail = compTemp;
+        }
+        compTail.next = new BoardNode(73); //create tail
+        compTail = compTail.next;
+
+    } //end of create safe zone
+
+    public Card drawCard(){
+        DiscardPile.push(Deck.pop());
+        return DiscardPile.peek();
+
+    } //end of draw Card
     
 }//end class BoardGame-nm
