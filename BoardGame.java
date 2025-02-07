@@ -19,6 +19,9 @@ public class BoardGame {
     private Card[] deck = new Card[NUMBER_OF_CARDS]; //Card references
     //create a stack for deck of cards
     Stack<Card> stackedDeck = new Stack<>();
+    //arrays for user and computer pawn positions
+    int[] userPos = new int[4];
+    int[] compPos = new int[4];
 
     //NOTES: Player start stop is board node #35
     //player home spot is board node #35
@@ -95,14 +98,13 @@ public class BoardGame {
     }//end insertAtEnd
 
     //print the current board
-    //takes in user and computer pawn position arrays
-    public void printBoard(int[] userPos, int[] compPos) {
+    public void printBoard() {
         //print key
         System.out.println("C = computer start pt, Y = your start pt, # = computer pawn, * = player pawn");
         //print top row (spaces 1-16)
         //leave a space for left column key
         printHoriztonalKey(1, 16);
-        printRow(1, 16, compPos, userPos);
+        printRow(1, 16);
 
         //create left and right columns and top safety zone
         int leftColPos = 60;//position in left column
@@ -199,7 +201,7 @@ public class BoardGame {
         }//end for loop
 
         //create bottom row (spaces 46-31)
-        printRow(46, 31, compPos, userPos);
+        printRow(46, 31);
         //print bottom row key
         printHoriztonalKey(46, 31);
     }//end createBoard
@@ -225,7 +227,7 @@ public class BoardGame {
 
     //helper method for create board: PRINT ROW
     //takes in leftmost space #, rightmost space #, computer position array, and user position array
-    public void printRow (int left, int right, int[]compPos, int[] userPos) {
+    public void printRow (int left, int right) {
         //leave room for left side key
         System.out.print("  ");
         for (int i = 1; i <= 16; i++) {//16 spaces across
@@ -801,5 +803,15 @@ public class BoardGame {
         return DiscardPile.peek();
 
     } //end of draw Card
+
+    //takes in int value of current space and translates to board node
+    public BoardNode getToCurrentNode(int curPosInt){
+        BoardNode temp = head;
+        for (int i = 1; i <= curPosInt; i++){//think this works?
+            temp = temp.next;
+        }
+        return temp;//the board node that corresponds to the current position
+    }//end getToCurrentNode
+
     
 }//end class BoardGame-nm

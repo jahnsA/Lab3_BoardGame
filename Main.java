@@ -1,6 +1,8 @@
 
 
 import java.util.Scanner;
+import javax.management.DescriptorKey;
+import jdk.jshell.DeclarationSnippet;
 public class Main {
     public static void main(String[] args) {
         //initialize section
@@ -8,19 +10,14 @@ public class Main {
         BoardGame boardGame = new BoardGame();
         boardGame.createBoardLinkedList();
         boardGame.createSafeZones();
-        //arrays for user and computer pawn positions
-        int[] userPos = new int[4];
-        int[] compPos = new int[4];
 
         boardGame.stackDeck();
 
         //within a loop
         //user first
-        boardGame.drawCard();
-        boardGame.printBoard(userPos, compPos);
+        boardGame.printBoard();
         
 
         System.out.println();
-        boardGame.choosePawn(userPos, scan);
     }//end main method
 }//end class Main
