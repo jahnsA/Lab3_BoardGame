@@ -751,14 +751,19 @@ public class BoardGame {
         }//end for
     }//end startUserPawn
 
-    //user chooses which pawn they would like to move
+    //user chooses which pawn they would like to move or stay
     //takes in user position array
-    public void choosePawn(int[] userPos){
+    //returns index of pawn user has chosen to play
+    public int choosePawn(int[] userPos, Scanner scan){
+        System.out.println("Which pawn would you like to play? (Enter an integer)");
+        System.out.println("0) Don't move");
         for (int i = 0; i < 4; i++) {//traverse user array
             if (userPos[i] != 0){
-                System.out.println();
+                System.out.println(i+1 + ") Pawn at spot " + userPos[i]);
             }
-        }
-    }
+        }//end for
+        int choice = scan.nextInt();
+        return choice - 1;
+    }//end choosePawn
     
 }//end class BoardGame-nm
