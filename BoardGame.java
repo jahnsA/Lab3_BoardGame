@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.util.Stack;
 
 public class BoardGame {
+    Scanner scan = new Scanner(System.in);
     private static final SecureRandom randomNumbers = new SecureRandom();
     private static final int NUMBER_OF_CARDS = 45;
     private Stack<Card> DiscardPile = new Stack<>();
@@ -757,9 +758,8 @@ public class BoardGame {
     }//end startUserPawn
 
     //user chooses which pawn they would like to move or stay
-    //takes in user position array
     //returns index of pawn user has chosen to play
-    public int choosePawn(int[] userPos, Scanner scan){
+    public int choosePawn(){
         System.out.println("Which pawn would you like to play? (Enter an integer)");
         System.out.println("0) Don't move");
         for (int i = 0; i < 4; i++) {//traverse user array
@@ -805,9 +805,9 @@ public class BoardGame {
     } //end of draw Card
 
     //takes in int value of current space and translates to board node
-    public BoardNode getToCurrentNode(int curPosInt){
+    public BoardNode getToCurrentNode(){
         BoardNode temp = head;
-        for (int i = 1; i <= curPosInt; i++){//think this works?
+        for (int i = 1; i <= choosePawn(); i++){//think this works?
             temp = temp.next;
         }
         return temp;//the board node that corresponds to the current position
