@@ -21,8 +21,8 @@ public class BoardGame {
     //create a stack for deck of cards
     Stack<Card> stackedDeck = new Stack<>();
     //arrays for user and computer pawn positions
-    int[] userPos = new int[4];
-    int[] compPos = new int[4];
+    static int[] userPos = new int[4];
+    static int[] compPos = new int[4];
 
     //NOTES: Player start stop is board node #35
     //player home spot is board node #35
@@ -74,7 +74,7 @@ public class BoardGame {
         }//end for loop
     }//end stackDeck
 
-    
+    //linked list for outer border of board (doesn't include safety zones)
     public void createBoardLinkedList() {
         //create node 1
         head = new BoardNode(1);
@@ -315,13 +315,29 @@ public class BoardGame {
         }//end if
     }//end printHorizontalKey
 
-    //checks if the person can start a pawn
-    public static boolean checkIfCanStartPawn (int[] pawnPos) {       
-        for(int i = 0; i < pawnPos.length; i++) {
+    //checks if can start a pawn
+    //takes in array of player pr computer pawn positions
+    public static boolean checkIfCanStartPawn (int[] pawnPos) {
+        boolean canPlay = false;       
+        for(int i = 0; i < pawnPos.length; i++) {//check if there are any pawns that haven't been started
             if(pawnPos[i] == 0) { //
-                return true; //can play
-            }
-        } return false; //can't play
+                canPlay =  true; //can play
+                break; //move to next for loop if there is a pawn that hasn't been started
+            } else {
+                canPlay = false; //can't play
+            }//end if/else
+        }//end for
+
+        //check if there is already a pawn on the start
+        for (int j = 0; j < 4; j++) {
+            if (userPos[j] == 35 || compPos[j] == 35) { //if there is already a pawn on user start, can't start another
+                canPlay = false;
+                break; //if there's a pawn on the start, can't start another
+            } else {
+                canPlay = true;
+            }//end if/else
+        }//end for loop
+        return canPlay;
     } //end checkIfCanStartPawn
     
     //method that moves the pawn forward a certain amount of spaces
