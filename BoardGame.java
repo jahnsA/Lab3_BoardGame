@@ -96,6 +96,7 @@ public class BoardGame {
         //print key
         System.out.println("C = computer start pt, Y = your start pt, # = computer pawn, * = player pawn");
         //print top row (spaces 1-16)
+        //leave a space for left column key
         printHoriztonalKey(1, 16);
         printRow(1, 16, compPos, userPos);
 
@@ -103,7 +104,7 @@ public class BoardGame {
         int leftColPos = 60;//position in left column
         int rightColPos = 17;//position in right column
         for (int t = 1; t <= 5; t++) {//5 rows
-            //print left column (60-56)
+            System.out.print(leftColPos);//key
             printCell(leftColPos, userPos, compPos);
             leftColPos--; //decrease to move down left column
 
@@ -116,6 +117,7 @@ public class BoardGame {
 
             //right column spaces 17-21
             printCell(rightColPos, userPos, compPos);
+            System.out.print(rightColPos);//key
             rightColPos++; //increase to move down right column
             System.out.println();//move to new row
         }//end for loop
@@ -125,6 +127,7 @@ public class BoardGame {
         rightColPos = 22; //starting pt for right column
         for (int i = 1; i <= 2; i++) {//2 rows
             //left column
+            System.out.print(leftColPos);//key
             printCell(leftColPos, userPos, compPos);
             leftColPos--;
             //end left column
@@ -138,6 +141,7 @@ public class BoardGame {
 
             //RIGHT COLUMN (22-23)
             printCell(rightColPos, userPos, compPos);
+            System.out.print(rightColPos);//key
             rightColPos++;
             System.out.println();
             //end right column
@@ -148,6 +152,7 @@ public class BoardGame {
         //columns and user home zone
         for (int t = 1; t <= 2; t++) {
             //LEFT COLUMN (53-52)
+            System.out.print(leftColPos);//key
             printCell(leftColPos, userPos, compPos);
             leftColPos--;
             //END LEFT COLUMN
@@ -162,6 +167,7 @@ public class BoardGame {
 
             //RIGHT COLUMN (24-25)
             printCell(rightColPos, userPos, compPos);
+            System.out.print(rightColPos);//key
             rightColPos++;
             System.out.println();
         }//end for loop
@@ -171,6 +177,7 @@ public class BoardGame {
         rightColPos = 26;
         for (int t = 0; t < 5; t++) {
             //left column (51-47)
+            System.out.print(leftColPos);//key
             printCell(leftColPos, userPos, compPos);
             leftColPos--;
             //print spaces in between left column and safety zone
@@ -182,6 +189,7 @@ public class BoardGame {
 
             //right column (26-30)
             printCell(rightColPos, userPos, compPos);
+            System.out.print(rightColPos);//key
             System.out.println();
             rightColPos++;
         }//end for loop
@@ -214,6 +222,8 @@ public class BoardGame {
     //helper method for create board: PRINT ROW
     //takes in leftmost space #, rightmost space #, computer position array, and user position array
     public void printRow (int left, int right, int[]compPos, int[] userPos) {
+        //leave room for left side key
+        System.out.print("  ");
         for (int i = 1; i <= 16; i++) {//16 spaces across
             boolean placed = false;//resets to placed for each new space
             for(int pawn = 0; pawn < 4; pawn++){ //check computer and user pawn arrays
@@ -246,6 +256,8 @@ public class BoardGame {
 
     //ONLY WORKS FOR TOP ROW
     public void printHoriztonalKey(int left, int right) {
+        //leave space for left side key
+        System.out.print("  ");
         //top row (1-16)
         if(left < right){
             //first row
@@ -258,6 +270,8 @@ public class BoardGame {
                 }//end if/else
             }//end for
             System.out.println();
+            //leave room for left side key
+            System.out.print("  ");
             //second row
             for (int i = left; i <= right; i++) {
                 if (i<10){//single digit
@@ -280,6 +294,8 @@ public class BoardGame {
             }//end for
             System.out.println();
             //second row
+            //leave room for left side key
+            System.out.print("  ");
             for (int i = left; i >= right; i--) {
                 if (i<10){//single digit
                     System.out.print(" " + i);
