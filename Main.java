@@ -15,13 +15,13 @@ public class Main {
         //current card for user (reset each time)
         //boardGame.stackDeck();
         //currentCard = boardGame.stackedDeck.pop();//draw a card
-        boardGame.startUserPawn(userPos);
+        //boardGame.startUserPawn(userPos);
 
         boardGame.printBoard(userPos, compPos);
-        System.out.println("User array");
-        for (int i = 0; i < 4; i++) {
+        //System.out.println("User array");
+        /*for (int i = 0; i < 4; i++) {
             System.out.println(userPos[i]);
-        }
+        }*/
         
 
         System.out.println();

@@ -90,73 +90,6 @@ public class BoardGame {
         tail = temp;
     }//end insertAtEnd
 
-    /*static void printList(BoardNode curr, BoardNode head) {
-
-        // return if list is empty
-        if (head == null) return;
-        
-        System.out.print(curr.getSpaceNum() + " ");
-        
-        if (curr.next == head)
-            return;
-        
-        printList(curr.next, head);
-
-    }
-    public void printList(){
-        printList(head, head);
-    }*/
-    //creates circular double linked list with 60 spaces
-    /*public void createBoardLinkedList() {
-        //create first node at beginning
-        BoardNode firstNode = new BoardNode(nodePosition.regularSpot, 1);
-        //set this node to the head
-        head = firstNode;
-        //make it a circular linked list
-        firstNode.next = firstNode;
-        firstNode.prev = firstNode;
-        //add 58 board nodes to linked list (since 1 is already created)
-        for (int i = 0; i < 58; i++){
-            addNode(i+1);
-        }//end for loop
-
-        //add 60th node and link to first node to make a circle
-    }//end createBoardLinkedList method
-
-    //add new node at end
-    public void addNode(int currentNum) {
-        //knowing that linked list is not empty didn't check for null head
-        //create new node
-        BoardNode newNode = new BoardNode(nodePosition.regularSpot, currentNum);
-        //insert new Node at end
-        newNode.prev = head.prev;
-        newNode.next = head;
-        head.prev.next = newNode;
-        head.prev = newNode;
-    }//end addNode method*/
-
-    //helper method to call printoutLinkedList(head)
-   /*public void printoutLinkedList(){
-        printoutLinkedList(this.head);
-    }
-
-    //test code method
-    //prints out entire linked list in string with numbers to count spaces
-    public void printoutLinkedList(BoardNode head) {
-        int count = 1;
-        if (head == null) {
-            System.out.println("Board Empty");
-            return;
-        }
-        BoardNode current = head;
-        do {
-            System.out.print(current.toString() + ": " + count);
-            current = current.next;
-            count++;
-            System.out.println();
-        } while (current != head);
-    }//end of test code method*/
-
     //print the current board
     //takes in user and computer pawn position arrays
     public void printBoard(int[] userPos, int[] compPos) {
@@ -255,6 +188,8 @@ public class BoardGame {
 
         //create bottom row (spaces 46-31)
         printRow(46, 31, compPos, userPos);
+        //print bottom row key
+        printHoriztonalKey(46, 31);
     }//end createBoard
 
     //print a cell 
@@ -311,26 +246,50 @@ public class BoardGame {
 
     //ONLY WORKS FOR TOP ROW
     public void printHoriztonalKey(int left, int right) {
-        //first row
-        for (int j = left; j<= right; j++){
-            if(j<10){
-                System.out.print("  ");
-            } else {
-                String stringVer = Integer.toString(j);
-                System.out.print(" " + stringVer.charAt(0));
+        //top row (1-16)
+        if(left < right){
+            //first row
+            for (int j = left; j<= right; j++){
+                if(j<10){
+                    System.out.print("  ");
+                } else {
+                    String stringVer = Integer.toString(j);
+                    System.out.print(" " + stringVer.charAt(0));
+                }//end if/else
+            }//end for
+            System.out.println();
+            //second row
+            for (int i = left; i <= right; i++) {
+                if (i<10){//single digit
+                    System.out.print(" " + i);
+                } else {
+                    String stringVer = Integer.toString(i);
+                    System.out.print(" " + stringVer.charAt(1));
+                }//end if/else
+            } //end for
+            System.out.println();
+        } else {//bottom row
+            //first row
+            for (int j = left; j>= right; j--){
+                if(j<10){
+                    System.out.print("  ");
+                } else {
+                    String stringVer = Integer.toString(j);
+                    System.out.print(" " + stringVer.charAt(0));
+                }//end if/else
+            }//end for
+            System.out.println();
+            //second row
+            for (int i = left; i >= right; i--) {
+                if (i<10){//single digit
+                    System.out.print(" " + i);
+                } else {
+                    String stringVer = Integer.toString(i);
+                    System.out.print(" " + stringVer.charAt(1));
+                }//end if/else
             }
-        }
-        System.out.println();
-        //second row
-        for (int i = left; i <= right; i++) {
-            if (i<10){//single digit
-                System.out.print(" " + i);
-            } else {
-                String stringVer = Integer.toString(i);
-                System.out.print(" " + stringVer.charAt(1));
-            }
-        }
-        System.out.println();
+            System.out.println();
+        }//end if
     }//end printHorizontalKey
 
     //checks if the person can start a pawn
