@@ -441,35 +441,35 @@ public class BoardGame {
     } //end checkIfCanPlay
     
     //player plays method
-    public void playerPlays(Card sorryCard, BoardNode currentPosition, Scanner input, int[] playerPawns) {
+    public void playerPlays(Card sorryCard, BoardNode currentPosition) {
         //switch statement to print the values of the cards out?
         int playerChoice = 0;
         //ASK THE PLAYER WHICH PAWN THEY WANT TO MOVE
         switch (sorryCard.getCardType()) {
-            case ONE: //one card, need player input
+            case ONE: //one card, need player scan
                 System.out.println("You pulled a ONE!\nEither start a pawn or move one pawn 1 space forward.");
                 //give the player the option
                 while(true) {
                     try {
                         System.out.println("Do you wish to 1. start a pawn or 2. Move the pawn forward 1?");
-                        playerChoice = input.nextInt();
+                        playerChoice = scan.nextInt();
                         
                     } catch (InputMismatchException e) { //error checking
                         System.out.println("Invalid entry. Enter a number: ");
-                        input.next();
+                        scan.next();
                     }
                     if((playerChoice != 1)&&(playerChoice != 2)) { //error checking
                         System.out.println("Invalid option. Enter either a 1 or a 2: ");
-                        playerChoice = input.nextInt();
+                        playerChoice = scan.nextInt();
                     }
                     break;
                 }
                 System.out.println("You entered: " + playerChoice); //prints out what number you entered
                 
                 if (playerChoice == 1) {
-                    if(checkIfCanStartPawn(playerPawns) == true) {
+                    if(checkIfCanStartPawn(userPos) == true) {
                         //then can start pawn
-                        startUserPawn(playerPawns);
+                        startUserPawn(userPos);
                     } else {
                         //can't start a pawn, must move pawn
                         moveForward(currentPosition, 1, false);
@@ -481,29 +481,29 @@ public class BoardGame {
                 } 
                 break;
 
-            case TWO: //two card, needs player input
+            case TWO: //two card, needs player scan
                 System.out.println("You pulled a TWO!\nEither start a pawn or move one pawn 2 spaces forward, and DRAW AGAIN");
                 //give player option on what to do
                 while(true) {
                     try {
                         System.out.println("Do you wish to 1. start a pawn or 2. Move the pawn forward 2 spaces?");
-                        playerChoice = input.nextInt();
+                        playerChoice = scan.nextInt();
                         
                     } catch (InputMismatchException e) { //errror checking
                         System.out.println("Invalid entry. Enter a number: ");
-                        input.next();
+                        scan.next();
                     }
                     if((playerChoice != 1)&&(playerChoice != 2)) { //error checking
                         System.out.println("Invalid option. Enter either a 1 or a 2: ");
-                        playerChoice = input.nextInt();
+                        playerChoice = scan.nextInt();
                     }
                     break;
                 }
                 System.out.println("You entered: " + playerChoice); //prints out what you entered
                 if (playerChoice == 1) {
-                    if(checkIfCanStartPawn(playerPawns) == true) {
+                    if(checkIfCanStartPawn(userPos) == true) {
                         //then can start pawn
-                        startUserPawn(playerPawns);
+                        startUserPawn(userPos);
                     } else {
                         //can't start a pawn, must move pawn
                         moveForward(currentPosition, 2, false);
@@ -538,15 +538,15 @@ public class BoardGame {
                 while(true) {
                     try {
                         System.out.println("Do you wish to 1. move forward 7 spaces or 2. split the move between two pawns?");
-                        playerChoice = input.nextInt();
+                        playerChoice = scan.nextInt();
                         
                     } catch (InputMismatchException e) { //error checking
                         System.out.println("Invalid entry. Enter a number: ");
-                        input.next();
+                        scan.next();
                     }
                     if((playerChoice != 1)&&(playerChoice != 2)) { //error checking
                         System.out.println("Invalid option. Enter either a 1 or a 2: ");
-                        playerChoice = input.nextInt();
+                        playerChoice = scan.nextInt();
                     }
                     break;
                 }
@@ -560,15 +560,15 @@ public class BoardGame {
                     while(true) {
                         try {
                             System.out.println("Enter the number of spaces you wish your pawn to move: ");
-                            playerChoice = input.nextInt();
+                            playerChoice = scan.nextInt();
                             
                         } catch (InputMismatchException e) { //error checking
                             System.out.println("Invalid entry. Enter a number: ");
-                            input.next();
+                            scan.next();
                         }
                         if((playerChoice < 0)||(playerChoice >= 7 )) { //error checking,
                             System.out.println("Invalid option. Enter a number between 0-7: ");
-                            playerChoice = input.nextInt();
+                            playerChoice = scan.nextInt();
                         }
                         break;
                     }
@@ -589,14 +589,14 @@ public class BoardGame {
                 while(true) {
                     try {
                         System.out.println("Do you wish to 1. move one pawn forward 10 spaces or 2. move one pawn backward one space?");
-                        playerChoice = input.nextInt();
+                        playerChoice = scan.nextInt();
                     } catch (InputMismatchException e) { //error checking
                         System.out.println("Invalid entry. Enter a number: ");
-                        input.next();
+                        scan.next();
                     }
                     if((playerChoice != 1)&&(playerChoice != 2)) { //error checking
                         System.out.println("Invalid option. Enter either a 1 or a 2: ");
-                        playerChoice = input.nextInt();
+                        playerChoice = scan.nextInt();
                     }
                     break;
                 }
@@ -617,15 +617,15 @@ public class BoardGame {
                 while(true) {
                     try {
                         System.out.println("Do you wish to 1. move one pawn forward 10 spaces or 2. switch one of your pawns with one of your oppoenent's?");
-                        playerChoice = input.nextInt();
+                        playerChoice = scan.nextInt();
                         
                     } catch (InputMismatchException e) { //error checking
                         System.out.println("Invalid entry. Enter a number: ");
-                        input.next();
+                        scan.next();
                     }
                     if((playerChoice != 1)&&(playerChoice != 2)) { //error checking
                         System.out.println("Invalid option. Enter either a 1 or a 2: ");
-                        playerChoice = input.nextInt();
+                        playerChoice = scan.nextInt();
                     }
                     break;
                 }
