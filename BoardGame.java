@@ -6,8 +6,7 @@ import java.util.Stack;
 public class BoardGame {
     private static final SecureRandom randomNumbers = new SecureRandom();
     private static final int NUMBER_OF_CARDS = 45;
-    private Stack<Card> Deck;
-    private Stack<Card> DiscardPile;
+    private Stack<Card> DiscardPile = new Stack<>();
 
     BoardNode head; //top of board linked list
     BoardNode tail;//end of board linked list (points to head)
@@ -67,7 +66,7 @@ public class BoardGame {
         shuffle();
         //add array cards to deck 
         for (int i = 0; i < deck.length; i++) {
-            this.Deck.push(deck[i]);
+            stackedDeck.push(deck[i]);
         }//end for loop
     }//end stackDeck
 
@@ -798,7 +797,7 @@ public class BoardGame {
     } //end of create safe zone
 
     public Card drawCard(){
-        DiscardPile.push(Deck.pop());
+        DiscardPile.push(stackedDeck.pop());
         return DiscardPile.peek();
 
     } //end of draw Card
