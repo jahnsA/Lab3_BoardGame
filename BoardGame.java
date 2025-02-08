@@ -396,10 +396,10 @@ public class BoardGame {
                     return true;
                 } 
             } else { //computer is false, player pawn and play
-                if ((23 + pawnPos.getSpaceNum()) - 3 + spacesToBeMoved > 60) {
-                    int spacesTilSafe = (pawnPos.getSpaceNum() -3 + spacesToBeMoved) -60;
-                    moveForward(arrayIndex,spacesTilSafe, isComputer);
-                    //enter safe zone  
+                if (userPos[arrayIndex] + spacesToBeMoved >= 33) {//entered safe zone
+                    userPos[arrayIndex] = 33;
+                    //enter safe zone
+                    System.out.println("You entered the safe zone!"); 
                     return true;
                 } 
             }
@@ -414,12 +414,11 @@ public class BoardGame {
         if (spacesToBeMoved == 1) {
             currentPos= currentPos.prev;
         } else {
-            for(int i = 0; i< spacesToBeMoved-1; i++) {
+            for(int i = 0; i< spacesToBeMoved; i++) {
                 currentPos = currentPos.prev;
             }
         }
-        
-        
+        userPos[arrayIndex] = currentPos.getSpaceNum();//save position in user array
     } //end moveBackward
 
     //checks if the pawn is in the home spot
@@ -642,13 +641,13 @@ public class BoardGame {
 
             case TEN -> {
                 System.out.println("You pulled a TEN!\nEither move one pawn forward 10 spaces OR move one pawn backward one space!");
-                if (arePawnsOnBoard(userPos) == false) {
+                if (arePawnsOnBoard(userPos) == false) {//if no pawns on the board
                     System.out.println("You have no pawns on the board to move forward!");
                     System.out.println("Press enter to continue");
                     scan.nextLine();
                     break;
                 }
-                //give player option on what to do
+                //give player option on what to do and error checking
                 while(true) {
                     try {
                         System.out.println("Do you wish to 1. move one pawn forward 10 spaces or 2. move one pawn backward one space?");
@@ -664,6 +663,7 @@ public class BoardGame {
                     break;
                 }
                 System.out.println("You entered: " + playerChoice);
+                //choose pawn to play
                 int arrayIndex = choosePawn();
                 if (playerChoice == 1) {
                     //move forward 10
