@@ -541,8 +541,16 @@ public class BoardGame {
                 break;
             case FOUR: //four card, no player input
                 System.out.println("You pulled a FOUR!\nMove one pawn backward 4 spaces!");
-                //move the pawn backward four spaces
-                moveBackward( 4);
+                //moves a pawn backward four spaces if you have one on the board
+                //check if there is a pawn on the board
+                for (int i = 0; i < 4; i++) {
+                    if (userPos[i] != 0) {
+                        //move the pawn back four spaces
+                        moveBackward( 4);
+                        break;
+                    }
+                    System.out.println("You have no pawns on the board to move back!");
+                }
                 break;
             case FIVE: //five card, no player input
                 System.out.println("You pulled a FIVE!\nMove one pawn 5 spaces forward!");
@@ -787,7 +795,11 @@ public class BoardGame {
             }
         }//end for
         int choice = scan.nextInt();
-        return choice - 1;
+        if (choice == 0) {//if they don't want to move
+            return 0;
+        } else {//index of pawn they want to move`
+            return choice-1;
+        }//end if/else
     }//end choosePawn
 
     public void createSafeZones() {
