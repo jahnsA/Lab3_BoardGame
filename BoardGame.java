@@ -341,7 +341,9 @@ public class BoardGame {
     } //end checkIfCanStartPawn
     
     //method that moves the pawn forward a certain amount of spaces
-    public static void moveForward(BoardNode currentPositon, int spacesToBeMoved, boolean isComputer) {
+    public static void moveForward(int spacesToBeMoved, boolean isComputer) {
+        int arrayIndex = choosePawn();
+        BoardNode currentPositon = getToStartNode(arrayIndex);
         //checks to see if the pawn will enter safe zone
         
         if ((checkIfInHomeSpot(currentPositon, isComputer) == true)&&(checkIfEnoughSpaces(spacesToBeMoved, currentPositon, isComputer) == true)) {
@@ -358,6 +360,7 @@ public class BoardGame {
                     currentPositon = currentPositon.next;
                 }
             }
+            userPos[arrayIndex] = currentPositon.getSpaceNum(); //update user position array
         } else {System.out.println("Not enough valid spaces! Your turn is skipped!");} //skip turn
     }//end moveForward
 
@@ -369,33 +372,33 @@ public class BoardGame {
                 //computer pawn
                 if ((pawnPos.getSpaceNum() == 60) && (spacesToBeMoved > 3)) { //means it enters the safe zone
                     //enter safe zone
-                    moveForward(pawnPos, 3, true);
+                    moveForward(3, true);
                     return true;
                 } else if((pawnPos.getSpaceNum() == 1) && (spacesToBeMoved > 2)) { //means it enters the safe zone
                      //enter safe zone 
-                     moveForward(pawnPos, 2, true);
+                     moveForward( 2, true);
                      //enter safe zone
                      return true;
                 } else if((pawnPos.getSpaceNum() == 2) &&(spacesToBeMoved <= 7)) { //means it enters the safe zone
                      //enter safe zone spaces - 1
-                    moveForward(pawnPos, 1, true);
+                    moveForward(1, true);
                     //enter safe zone
                     return true;
                 } else if((pawnPos.getSpaceNum() == 3) && (spacesToBeMoved <=6)) { //means it enters the safe zone
                      //enter safe zone space
                      //then walk forward
-                     moveForward(pawnPos, spacesToBeMoved-6, true);
+                     moveForward(spacesToBeMoved-6, true);
                      return true;
                 } else if(pawnPos.getSpaceNum() - 4 + spacesToBeMoved > 60) { ///means it enters the safe zone
                     int spacesTilSafe = ((pawnPos.getSpaceNum() - 4 + spacesToBeMoved) - 60);
-                    moveForward(pawnPos, spacesTilSafe, true);
+                    moveForward(spacesTilSafe, true);
                     //enter safe zone spaces - 6
                     return true;
                 } 
             } else { //computer is false, player pawn and play
                 if ((23 + pawnPos.getSpaceNum()) - 3 + spacesToBeMoved > 60) {
                     int spacesTilSafe = (pawnPos.getSpaceNum() -3 + spacesToBeMoved) -60;
-                    moveForward(pawnPos, spacesTilSafe, isComputer);
+                    moveForward(spacesTilSafe, isComputer);
                     //enter safe zone  
                     return true;
                 } 
@@ -407,12 +410,13 @@ public class BoardGame {
     //method that moves the pawn back a certain amount of spaces
     public void moveBackward(int spacesToBeMoved) {
         //won't need a check because it goes backwards not forwards
-            BoardNode currentPos = getToStartNode();
+            int arrayIndex = choosePawn();
+            BoardNode currentPos = getToStartNode(arrayIndex);
         if (spacesToBeMoved == 1) {
-            currentPos= getToStartNode().prev;
+            currentPos= currentPos.prev;
         } else {
             for(int i = 0; i< spacesToBeMoved-1; i++) {
-                currentPos = getToStartNode().prev;
+                currentPos = currentPos.prev;
             }
         }
         
@@ -433,7 +437,7 @@ public class BoardGame {
     } //end of checkIfInHomeSpot
 
     // checks to see if the player/computer has enough valid spaces for their turn, returns false if not,which means their turn is skipped
-    public static boolean checkIfEnoughSpaces(int spacestoMove,BoardNode pawnPos, boolean isComputer) {
+    public static boolean checkIfEnoughSpaces(int spacestoMove, BoardNode pawnPos, boolean isComputer) {
         //checks if there are enough spaces for the pawn to move into or not enough
         if (isComputer== true) {
             //computer pawn
@@ -450,7 +454,8 @@ public class BoardGame {
             } else {return false;}
         }
         else { //computer is false, player pawn and play
-            if ((23 + pawnPos.getSpaceNum()) - 3 + spacestoMove <= 66) {
+            //only works for outside of board rn (not safe zones)
+            if (pawnPos.getSpaceNum() + spacestoMove <= 60) {//OG code (didn't work): 23 + pawnPos.getSpaceNum()) - 3 + spacestoMove <= 66
                 return true;
             } else {return false;} //not enough valid spaces
         }
@@ -464,7 +469,7 @@ public class BoardGame {
                 } else {
                     System.out.println("Move one pawn " + spacesForward + " spaces forward!");
                     //move the pawn forward spacesForward spaces
-                    moveForward(getToStartNode(), spacesForward, false);
+                    moveForward(spacesForward, false);
                 }//end if/else
                 System.out.println("Press enter to continue");
                 scan.nextLine();
@@ -505,12 +510,12 @@ public class BoardGame {
                         startUserPawn();
                     } else {
                         //can't start a pawn, must move pawn
-                        moveForward(getToStartNode(), 1, false);
+                        moveForward(1, false);
                         
                     }
                 } else if (playerChoice == 2) {
                     //move pawn forward 1
-                    moveForward(getToStartNode(), 1, false);
+                    moveForward(1, false);
                 }
             }
 
@@ -534,18 +539,18 @@ public class BoardGame {
                     break;
                 }
                 System.out.println("You entered: " + playerChoice); //prints out what you entered
-                if (playerChoice == 1) {
+                if (playerChoice == 1) {//start a pawn
                     if(checkIfCanStartPawn(userPos) == true) {
                         //then can start pawn
                         startUserPawn();
-                    } else {
+                    } else {//can't start a pawn, must move pawn
                         //can't start a pawn, must move pawn
-                        moveForward(getToStartNode(), 2, false);
+                        moveForward(2, false);
                         
                     }
                 } else if (playerChoice == 2) {
                     //move pawn forward 2
-                    moveForward(getToStartNode(), 2, false);
+                    moveForward(2, false);
                 }
                 //ADD DRAW CARD METHOD
             }
@@ -601,7 +606,7 @@ public class BoardGame {
 
                 if (playerChoice == 1) {
                     //move forward seven paces
-                    moveForward(getToStartNode(), 7, false);
+                    moveForward(7, false);
                 } else if (playerChoice == 2) {
                     //split move between two pawns
                     while(true) {
@@ -619,7 +624,7 @@ public class BoardGame {
                         }
                         break;
                     }
-                    moveForward(getToStartNode(), playerChoice, false); //first pawn
+                    moveForward(playerChoice, false); //first pawn
                     //moveForward(getToStartNode(), 7-playerChoice, false); //second pawn, diff node -> FIX
                 }
             }
@@ -653,7 +658,7 @@ public class BoardGame {
                 System.out.println("You entered: " + playerChoice);
                 if (playerChoice == 1) {
                     //move forward 10
-                    moveForward(getToStartNode(), 10, false);
+                    moveForward( 10, false);
                 } else if (playerChoice == 2) {
                     //move backward 1
                     moveBackward( 1);
@@ -688,7 +693,7 @@ public class BoardGame {
                 System.out.println("You entered: " + playerChoice);
                 if (playerChoice == 1) {
                     //move pawn foward 10 spaces
-                    moveForward(getToStartNode(), 10, false);
+                    moveForward(10, false);
                 } else if (playerChoice == 2) {
                     //switch pawn with one of opponents   
                 }
@@ -864,15 +869,14 @@ public class BoardGame {
 
     //takes in int value of space player starts their turn at and translates to board node
     //generalize to work for computer too?
-    public static BoardNode getToStartNode(){
+    public static BoardNode getToStartNode(int arrayIndex){
         BoardNode temp = head;
-        int arrayIndex = choosePawn();
         int startSpot = userPos[arrayIndex];
         for (int i = 1; i <= startSpot; i++){//think this works?
             temp = temp.next;
             //update array to reflect new position
-            userPos[arrayIndex] = temp.getSpaceNum();
         }
+        userPos[arrayIndex] = temp.getSpaceNum();
         return temp;//the board node that corresponds to the current position
     }//end getToCurrentNode
 
