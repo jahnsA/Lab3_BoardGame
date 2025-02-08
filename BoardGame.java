@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.Stack;
 
 public class BoardGame {
-    Scanner scan = new Scanner(System.in);
+    static Scanner scan = new Scanner(System.in);
     private static final SecureRandom randomNumbers = new SecureRandom();
     private static final int NUMBER_OF_CARDS = 45;
     private Stack<Card> DiscardPile = new Stack<>();
@@ -341,7 +341,7 @@ public class BoardGame {
     } //end checkIfCanStartPawn
     
     //method that moves the pawn forward a certain amount of spaces
-    public void moveForward(BoardNode currentPositon, int spacesToBeMoved, boolean isComputer) {
+    public static void moveForward(BoardNode currentPositon, int spacesToBeMoved, boolean isComputer) {
         //checks to see if the pawn will enter safe zone
         
         if ((checkIfInHomeSpot(currentPositon, isComputer) == true)&&(checkIfEnoughSpaces(spacesToBeMoved, currentPositon, isComputer) == true)) {
@@ -362,7 +362,7 @@ public class BoardGame {
     }//end moveForward
 
     //checks to see if the pawn will enter the safe zone in the middle of their turn
-    public boolean CheckPawnSafeZone(BoardNode pawnPos, int spacesToBeMoved, boolean isComputer) {
+    public static boolean CheckPawnSafeZone(BoardNode pawnPos, int spacesToBeMoved, boolean isComputer) {
         if(checkIfEnoughSpaces(spacesToBeMoved, pawnPos, isComputer) == true) {
             //move it to the safe zone
             if (isComputer== true) {
@@ -456,6 +456,20 @@ public class BoardGame {
         }
     } //end checkIfCanPlay
     
+    //code for all the cards that move a pawn forward a certain amount of spaces
+    public static void moveForwardCard(int spacesForward, CardType cardType){
+        System.out.println("You pulled a " + cardType + "!");
+                if (arePawnsOnBoard(userPos) == false) {
+                    System.out.println("You have no pawns on the board to move forward!");
+                } else {
+                    System.out.println("Move one pawn " + spacesForward + " spaces forward!");
+                    //move the pawn forward spacesForward spaces
+                    moveForward(getToStartNode(), spacesForward, false);
+                }//end if/else
+                System.out.println("Press enter to continue");
+                scan.nextLine();
+    }//end moveForwardCard
+
     //player plays method
     //takes in the card the player drew and the current position of the pawn they want to move
     //doesn't make sense bc they want to choose which pawn to move after they draw a card
@@ -535,15 +549,7 @@ public class BoardGame {
                 break;
 
             case THREE: //three card, no player input
-                System.out.println("You pulled a THREE!\nMove one pawn 3 spaces forward!");
-                if (arePawnsOnBoard(userPos) == false) {
-                    System.out.println("You have no pawns on the board to move forward!");
-                    System.out.println("Press enter to continue");
-                    scan.nextLine();
-                    break;
-                }
-                //move the pawn forward three spaces
-                moveForward(getToStartNode(), 3, false);
+                moveForwardCard(3, CardType.THREE);
                 break;
             case FOUR: //four card, no player input
                 System.out.println("You pulled a FOUR!\nMove one pawn backward 4 spaces!");
@@ -561,15 +567,7 @@ public class BoardGame {
                 }
                 break;
             case FIVE: //five card, no player input
-                System.out.println("You pulled a FIVE!\nMove one pawn 5 spaces forward!");
-                if (arePawnsOnBoard(userPos) == false) {
-                    System.out.println("You have no pawns on the board to move forward!");
-                    System.out.println("Press enter to continue");
-                    scan.nextLine();
-                    break;
-                }
-                //move the pawn forward five spaces
-                moveForward(getToStartNode(), 5, false);
+            moveForwardCard(5, CardType.FIVE);
                 break;
 
             case SEVEN: //seven card, player input needed
@@ -624,16 +622,7 @@ public class BoardGame {
                 break;
                 
             case EIGHT: //eight card, no player input
-                System.out.println("You pulled a EIGHT!");
-                if (arePawnsOnBoard(userPos) == false) {
-                    System.out.println("You have no pawns on the board to move forward!");
-                    System.out.println("Press enter to continue");
-                    scan.nextLine();
-                    break;
-                }
-                System.out.println("Move one pawn forward 8 spaces!");
-                //move the pawn forward eight spaces
-                moveForward(getToStartNode(), 8, false);
+            moveForwardCard(8, CardType.EIGHT);
                 break;
 
             case TEN:
@@ -704,14 +693,7 @@ public class BoardGame {
                 break;
 
             case TWELVE: //twelve card, no player input
-                System.out.println("You pulled a TWELVE!\nMove one pawn forward 12 spaces");
-                if (arePawnsOnBoard(userPos) == false) {
-                    System.out.println("You have no pawns on the board to move forward!");
-                    System.out.println("Press enter to continue");
-                    scan.nextLine();
-                    break;
-                }
-                moveForward(getToStartNode(), 12, false);
+            moveForwardCard(12, CardType.TWELVE);
                 break;
 
             case SORRY:
@@ -883,7 +865,7 @@ public class BoardGame {
 
     //takes in int value of space player starts their turn at and translates to board node
     //generalize to work for computer too?
-    public BoardNode getToStartNode(){
+    public static BoardNode getToStartNode(){
         BoardNode temp = head;
         for (int i = 1; i <= userPos[choosePawn()]; i++){//think this works?
             temp = temp.next;
@@ -892,7 +874,7 @@ public class BoardGame {
     }//end getToCurrentNode
 
     //check if there are any pawns in play from the given array (user or computer)
-    boolean arePawnsOnBoard(int[] pawnArray){
+    public static boolean arePawnsOnBoard(int[] pawnArray){
         for (int i = 0; i < pawnArray.length; i++) {
             if (pawnArray[i] != 0) {
                 return true;
