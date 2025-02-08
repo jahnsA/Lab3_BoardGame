@@ -9,12 +9,12 @@ public class BoardGame {
     private static final int NUMBER_OF_CARDS = 45;
     private Stack<Card> DiscardPile = new Stack<>();
 
-    private BoardNode head; //top of board linked list
-    private BoardNode tail;//end of board linked list (points to head)
-    private BoardNode playHead; //head of player list
-    private BoardNode playTail; //tail of player list
-    private BoardNode compHead; //head of computer lsit
-    private BoardNode compTail; //tail of computer list
+    private static BoardNode head; //top of board linked list
+    private static BoardNode tail;//end of board linked list (points to head)
+    private static BoardNode playHead; //head of player list
+    private static BoardNode playTail; //tail of player list
+    private static BoardNode compHead; //head of computer lsit
+    private static BoardNode compTail; //tail of computer list
 
     //creates an array of Card objects (deck)
     private Card[] deck = new Card[NUMBER_OF_CARDS]; //Card references
@@ -354,7 +354,7 @@ public class BoardGame {
             if (spacesToBeMoved == 1) {
                 currentPositon = currentPositon.next;
             } else {
-                for(int i = 0; i< spacesToBeMoved-1; i++) {
+                for(int i = 0; i < spacesToBeMoved; i++) {
                     currentPositon = currentPositon.next;
                 }
             }
@@ -450,7 +450,7 @@ public class BoardGame {
             } else {return false;}
         }
         else { //computer is false, player pawn and play
-            if ((23 + pawnPos.getSpaceNum()) - 3 + spacestoMove == 66) {
+            if ((23 + pawnPos.getSpaceNum()) - 3 + spacestoMove <= 66) {
                 return true;
             } else {return false;} //not enough valid spaces
         }
@@ -478,7 +478,8 @@ public class BoardGame {
         int playerChoice = 0;
         //ASK THE PLAYER WHICH PAWN THEY WANT TO MOVE
         switch (sorryCard.getCardType()) {
-            case ONE: //one card, need player scan
+            case ONE -> {
+                //one card, need player scan
                 System.out.println("You pulled a ONE!\nEither start a pawn or move one pawn 1 space forward.");
                 //give the player the option
                 while(true) {
@@ -510,10 +511,11 @@ public class BoardGame {
                 } else if (playerChoice == 2) {
                     //move pawn forward 1
                     moveForward(getToStartNode(), 1, false);
-                } 
-                break;
+                }
+            }
 
-            case TWO: //two card, needs player scan
+            case TWO -> {
+                //two card, needs player scan
                 System.out.println("You pulled a TWO!\nEither start a pawn or move one pawn 2 spaces forward, and DRAW AGAIN");
                 //give player option on what to do
                 while(true) {
@@ -546,12 +548,12 @@ public class BoardGame {
                     moveForward(getToStartNode(), 2, false);
                 }
                 //ADD DRAW CARD METHOD
-                break;
+            }
 
-            case THREE: //three card, no player input
+            case THREE -> //three card, no player input
                 moveForwardCard(3, CardType.THREE);
-                break;
-            case FOUR: //four card, no player input
+            case FOUR -> {
+                //four card, no player input
                 System.out.println("You pulled a FOUR!\nMove one pawn backward 4 spaces!");
                 //moves a pawn backward four spaces if you have one on the board
                 //check if there is a pawn on the board
@@ -564,13 +566,14 @@ public class BoardGame {
                     System.out.println("You have no pawns on the board to move back!");
                     System.out.println("Press enter to continue");
                     scan.nextLine();
+                    break;
                 }
-                break;
-            case FIVE: //five card, no player input
+            }
+            case FIVE -> //five card, no player input
             moveForwardCard(5, CardType.FIVE);
-                break;
 
-            case SEVEN: //seven card, player input needed
+            case SEVEN -> {
+                //seven card, player input needed
                 System.out.println("You pulled a SEVEN!\nEither move one pawn forward 7 spaces OR split the move between two pawns!");
                 if (arePawnsOnBoard(userPos) == false) {
                     System.out.println("You have no pawns on the board to move forward!");
@@ -618,14 +621,13 @@ public class BoardGame {
                     }
                     moveForward(getToStartNode(), playerChoice, false); //first pawn
                     //moveForward(getToStartNode(), 7-playerChoice, false); //second pawn, diff node -> FIX
-                } 
-                break;
+                }
+            }
                 
-            case EIGHT: //eight card, no player input
+            case EIGHT -> //eight card, no player input
             moveForwardCard(8, CardType.EIGHT);
-                break;
 
-            case TEN:
+            case TEN -> {
                 System.out.println("You pulled a TEN!\nEither move one pawn forward 10 spaces OR move one pawn backward one space!");
                 if (arePawnsOnBoard(userPos) == false) {
                     System.out.println("You have no pawns on the board to move forward!");
@@ -655,10 +657,10 @@ public class BoardGame {
                 } else if (playerChoice == 2) {
                     //move backward 1
                     moveBackward( 1);
-                } 
-                break;
+                }
+            }
 
-            case ELEVEN:
+            case ELEVEN -> {
                 System.out.println("You pulled a ELEVEN!\nMove pawn forward 10 spaces OR switch one of your pawns with one of the opponent’s");
                 if (arePawnsOnBoard(userPos) == false) {
                     System.out.println("You have no pawns on the board to move forward!");
@@ -690,19 +692,16 @@ public class BoardGame {
                 } else if (playerChoice == 2) {
                     //switch pawn with one of opponents   
                 }
-                break;
+            }
 
-            case TWELVE: //twelve card, no player input
+            case TWELVE -> //twelve card, no player input
             moveForwardCard(12, CardType.TWELVE);
-                break;
 
-            case SORRY:
+            case SORRY -> {
                 System.out.println("You pulled a SORRY CARD!\nTake one pawn from start, replace it with one of your opponent's pawn!");
-                 //give player option on what to do
+                //give player option on what to do
                 scan.nextLine();
-                break;
-            default:
-                break;
+            }
         }
     } //end of printCard method
 
@@ -814,7 +813,7 @@ public class BoardGame {
 
     //user chooses which pawn they would like to move or stay
     //returns index of pawn user has chosen to play
-    public int choosePawn(){
+    public static int choosePawn(){
         System.out.println("Which pawn would you like to play? (Enter an integer)");
         System.out.println("0) Don't move");
         for (int i = 0; i < 4; i++) {//traverse user array
@@ -867,8 +866,12 @@ public class BoardGame {
     //generalize to work for computer too?
     public static BoardNode getToStartNode(){
         BoardNode temp = head;
-        for (int i = 1; i <= userPos[choosePawn()]; i++){//think this works?
+        int arrayIndex = choosePawn();
+        int startSpot = userPos[arrayIndex];
+        for (int i = 1; i <= startSpot; i++){//think this works?
             temp = temp.next;
+            //update array to reflect new position
+            userPos[arrayIndex] = temp.getSpaceNum();
         }
         return temp;//the board node that corresponds to the current position
     }//end getToCurrentNode

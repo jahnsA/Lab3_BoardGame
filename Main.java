@@ -15,7 +15,7 @@ public class Main {
         //BoardNode startPosition = boardGame.getToStartNode();
         //loop until one of the arrays has all pawns in home (will get this working later)
         //make a method called checkWin that returns a boolean for this loop
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 44; i++) {
             boardGame.playerPlays(boardGame.drawCard());
             boardGame.printBoard();
         }
