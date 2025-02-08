@@ -7,10 +7,17 @@ public class Main {
 
         boardGame.stackDeck();
 
+
         //within a loop
         //user first
         boardGame.printBoard();
-        
+
+        //BoardNode startPosition = boardGame.getToStartNode();
+        //loop until one of the arrays has all pawns in home (will get this working later)
+        //make a method called checkWin that returns a boolean for this loop
+        for (int i = 0; i < 10; i++) {
+            boardGame.playerPlays(boardGame.drawCard());
+        }
 
         System.out.println();
     }//end main method
