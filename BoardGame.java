@@ -487,7 +487,7 @@ public class BoardGame {
                 if (playerChoice == 1) {
                     if(checkIfCanStartPawn(userPos) == true) {
                         //then can start pawn
-                        startUserPawn(userPos);
+                        startUserPawn();
                     } else {
                         //can't start a pawn, must move pawn
                         moveForward(getToStartNode(), 1, false);
@@ -521,7 +521,7 @@ public class BoardGame {
                 if (playerChoice == 1) {
                     if(checkIfCanStartPawn(userPos) == true) {
                         //then can start pawn
-                        startUserPawn(userPos);
+                        startUserPawn();
                     } else {
                         //can't start a pawn, must move pawn
                         moveForward(getToStartNode(), 2, false);
@@ -624,13 +624,14 @@ public class BoardGame {
                 break;
                 
             case EIGHT: //eight card, no player input
-                System.out.println("You pulled a EIGHT!\nMove one pawn forward 8 spaces!");
+                System.out.println("You pulled a EIGHT!");
                 if (arePawnsOnBoard(userPos) == false) {
                     System.out.println("You have no pawns on the board to move forward!");
                     System.out.println("Press enter to continue");
                     scan.nextLine();
                     break;
                 }
+                System.out.println("Move one pawn forward 8 spaces!");
                 //move the pawn forward eight spaces
                 moveForward(getToStartNode(), 8, false);
                 break;
@@ -680,7 +681,7 @@ public class BoardGame {
                 
                 while(true) {
                     try {
-                        System.out.println("Do you wish to 1. move one pawn forward 10 spaces or 2. switch one of your pawns with one of your oppoenent's?");
+                        System.out.println("1) Move one pawn forward 10 spaces\n2) Switch one of your pawns with one of your opponent's?");
                         playerChoice = scan.nextInt();
                         
                     } catch (InputMismatchException e) { //error checking
@@ -714,9 +715,10 @@ public class BoardGame {
                 break;
 
             case SORRY:
-                System.out.println("You pulled a SORRY CARD!\nTake one pawn from start, replace it with one of your oppenent's pawn!");
+                System.out.println("You pulled a SORRY CARD!\nTake one pawn from start, replace it with one of your opponent's pawn!");
                  //give player option on what to do
-
+                scan.nextLine();
+                break;
             default:
                 break;
         }
@@ -818,7 +820,7 @@ public class BoardGame {
 
     //start user pawn, takes in user pawn postion array
     //need to make sure it gets to right spot in linked list though
-    public void startUserPawn(int[] userPos){
+    public void startUserPawn(){
         for (int i = 0; i < 4; i++) {//traverse userPos array
             if(userPos[i] == 0) {//if pawn hasn't been started
             //add case for if there is a pawn (user or computer) on user start (in different method?)
