@@ -536,6 +536,10 @@ public class BoardGame {
 
             case THREE: //three card, no player input
                 System.out.println("You pulled a THREE!\nMove one pawn 3 spaces forward!");
+                if (arePawnsOnBoard(userPos) == false) {
+                    System.out.println("You have no pawns on the board to move forward!");
+                    break;
+                }
                 //move the pawn forward three spaces
                 moveForward(getToStartNode(), 3, false);
                 break;
@@ -554,12 +558,20 @@ public class BoardGame {
                 break;
             case FIVE: //five card, no player input
                 System.out.println("You pulled a FIVE!\nMove one pawn 5 spaces forward!");
+                if (arePawnsOnBoard(userPos) == false) {
+                    System.out.println("You have no pawns on the board to move forward!");
+                    break;
+                }
                 //move the pawn forward five spaces
                 moveForward(getToStartNode(), 5, false);
                 break;
 
             case SEVEN: //seven card, player input needed
                 System.out.println("You pulled a SEVEN!\nEither move one pawn forward 7 spaces OR split the move between two pawns!");
+                if (arePawnsOnBoard(userPos) == false) {
+                    System.out.println("You have no pawns on the board to move forward!");
+                    break;
+                }
                 //give player option on what to do
                 while(true) {
                     try {
@@ -605,12 +617,20 @@ public class BoardGame {
                 
             case EIGHT: //eight card, no player input
                 System.out.println("You pulled a EIGHT!\nMove one pawn forward 8 spaces!");
+                if (arePawnsOnBoard(userPos) == false) {
+                    System.out.println("You have no pawns on the board to move forward!");
+                    break;
+                }
                 //move the pawn forward eight spaces
                 moveForward(getToStartNode(), 8, false);
                 break;
 
             case TEN:
                 System.out.println("You pulled a TEN!\nEither move one pawn forward 10 spaces OR move one pawn backward one space!");
+                if (arePawnsOnBoard(userPos) == false) {
+                    System.out.println("You have no pawns on the board to move forward!");
+                    break;
+                }
                 //give player option on what to do
                 while(true) {
                     try {
@@ -638,6 +658,10 @@ public class BoardGame {
 
             case ELEVEN:
                 System.out.println("You pulled a ELEVEN!\nMove pawn forward 10 spaces OR switch one of your pawns with one of the opponent’s");
+                if (arePawnsOnBoard(userPos) == false) {
+                    System.out.println("You have no pawns on the board to move forward!");
+                    break;
+                }
                 //give player option on what to do
                 
                 while(true) {
@@ -666,6 +690,10 @@ public class BoardGame {
 
             case TWELVE: //twelve card, no player input
                 System.out.println("You pulled a TWELVE!\nMove one pawn forward 12 spaces");
+                if (arePawnsOnBoard(userPos) == false) {
+                    System.out.println("You have no pawns on the board to move forward!");
+                    break;
+                }
                 moveForward(getToStartNode(), 12, false);
                 break;
 
@@ -678,7 +706,7 @@ public class BoardGame {
         }
     } //end of printCard method
 
-    public void computerPlays(Card sorryCard, int[] comPawn, BoardNode comPos) {
+    /*public void computerPlays(Card sorryCard, int[] comPawn, BoardNode comPos) {
         //iterate through the array and if it is not in start, chose that one to move around the board
         int pawnNum = 0;
         for(int i = 0; i< comPawn.length-1; i++) {
@@ -770,7 +798,7 @@ public class BoardGame {
             default:
                 break;
                 }
-    }
+    }*/ //end of computerPlays
 
     //start user pawn, takes in user pawn postion array
     //need to make sure it gets to right spot in linked list though
@@ -845,5 +873,13 @@ public class BoardGame {
         return temp;//the board node that corresponds to the current position
     }//end getToCurrentNode
 
-    
+    //check if there are any pawns in play from the given array (user or computer)
+    boolean arePawnsOnBoard(int[] pawnArray){
+        for (int i = 0; i < pawnArray.length; i++) {
+            if (pawnArray[i] != 0) {
+                return true;
+            }
+        }
+        return false;
+    }//end checkPawnsInPlay
 }//end class BoardGame-nm

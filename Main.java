@@ -17,6 +17,7 @@ public class Main {
         //make a method called checkWin that returns a boolean for this loop
         for (int i = 0; i < 10; i++) {
             boardGame.playerPlays(boardGame.drawCard());
+            boardGame.printBoard();
         }
 
         System.out.println();
