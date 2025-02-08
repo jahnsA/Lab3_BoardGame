@@ -351,7 +351,8 @@ public class BoardGame {
             
             
         } else if(CheckPawnSafeZone(arrayIndex, currentPositon, spacesToBeMoved, isComputer) == true) {
-            //moved into safe zone
+            spacesToBeMoved = spacesToBeMoved - 3; //subtract 3 from spaces to be moved
+            moveInSafeZone(arrayIndex, spacesToBeMoved);
         }  else if (checkIfEnoughSpaces(spacesToBeMoved, currentPositon, isComputer) == true) { //if you have enough valid spaces to play
             if (spacesToBeMoved == 1) {
                 currentPositon = currentPositon.next;
@@ -870,6 +871,19 @@ public class BoardGame {
         compTail = compTail.next;
 
     } //end of create safe zone
+
+    //uses remaining steps to go into safezone (currently just for user 61-66)
+    //takes in index of pawn to move and steps left to move
+    public static void moveInSafeZone(int arrayIndex, int stepsLeft) {
+        BoardNode temp = playHead;//start at the beginning of the safe zone
+        for (int i = 1; i < stepsLeft; i++) {
+            temp = temp.next;
+        }//move forward in the safe zone
+        userPos[arrayIndex] = temp.getSpaceNum();//update user position array
+        //if too many steps, tell player they can't move
+
+        //if more steps than needed, move pawn back
+    }//end of moveToSafeZone
 
     public Card drawCard(){
         DiscardPile.push(stackedDeck.pop());
