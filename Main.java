@@ -4,22 +4,15 @@ public class Main {
         BoardGame boardGame = new BoardGame();
         boardGame.createBoardLinkedList();
         boardGame.createSafeZones();
-
         boardGame.stackDeck();
 
-
-        //within a loop
-        //user first
+        //print blank board
         boardGame.printBoard();
 
-        //BoardNode startPosition = boardGame.getToStartNode();
-        //loop until one of the arrays has all pawns in home (will get this working later)
-        //make a method called checkWin that returns a boolean for this loop
-        for (int i = 0; i < 44; i++) {
+        //loop game until one of the arrays has all pawns in home
+        while(!boardGame.compIsWinner() && !boardGame.userIsWinner()) {
             boardGame.playerPlays(boardGame.drawCard());
             boardGame.printBoard();
-        }
-
-        System.out.println();
+        }//end while loop
     }//end main method
 }//end class Main

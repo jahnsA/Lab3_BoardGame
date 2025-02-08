@@ -898,5 +898,26 @@ public class BoardGame {
         }
         return false;
     }//end checkPawnsInPlay
+
+    //check to see if there is a winner
+    public static boolean userIsWinner(){
+        for (int i = 0; i < 4; i++) {//traverse array
+            if (userPos[i] != 73) {//if any pawn isn't in the home spot
+                return false;
+            }//end if
+        }//end array traversal
+        System.out.println("Congratulations! You have won!");
+        return true;
+    }//end isWinner
+
+    public static boolean compIsWinner(){
+        for (int i = 0; i < 4; i++) {//traverse array
+            if (compPos[i] != 73) {//if any pawn isn't in the home spot
+                return false;
+            }//end if
+        }//end array traversal
+        System.out.println("The computer has won! Better luck next time!");
+        return true;
+    }//end isWinner
 }//end class BoardGame
 
