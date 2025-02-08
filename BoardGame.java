@@ -538,6 +538,8 @@ public class BoardGame {
                 System.out.println("You pulled a THREE!\nMove one pawn 3 spaces forward!");
                 if (arePawnsOnBoard(userPos) == false) {
                     System.out.println("You have no pawns on the board to move forward!");
+                    System.out.println("Press enter to continue");
+                    scan.nextLine();
                     break;
                 }
                 //move the pawn forward three spaces
@@ -554,12 +556,16 @@ public class BoardGame {
                         break;
                     }
                     System.out.println("You have no pawns on the board to move back!");
+                    System.out.println("Press enter to continue");
+                    scan.nextLine();
                 }
                 break;
             case FIVE: //five card, no player input
                 System.out.println("You pulled a FIVE!\nMove one pawn 5 spaces forward!");
                 if (arePawnsOnBoard(userPos) == false) {
                     System.out.println("You have no pawns on the board to move forward!");
+                    System.out.println("Press enter to continue");
+                    scan.nextLine();
                     break;
                 }
                 //move the pawn forward five spaces
@@ -570,6 +576,8 @@ public class BoardGame {
                 System.out.println("You pulled a SEVEN!\nEither move one pawn forward 7 spaces OR split the move between two pawns!");
                 if (arePawnsOnBoard(userPos) == false) {
                     System.out.println("You have no pawns on the board to move forward!");
+                    System.out.println("Press enter to continue");
+                    scan.nextLine();
                     break;
                 }
                 //give player option on what to do
@@ -619,6 +627,8 @@ public class BoardGame {
                 System.out.println("You pulled a EIGHT!\nMove one pawn forward 8 spaces!");
                 if (arePawnsOnBoard(userPos) == false) {
                     System.out.println("You have no pawns on the board to move forward!");
+                    System.out.println("Press enter to continue");
+                    scan.nextLine();
                     break;
                 }
                 //move the pawn forward eight spaces
@@ -629,6 +639,8 @@ public class BoardGame {
                 System.out.println("You pulled a TEN!\nEither move one pawn forward 10 spaces OR move one pawn backward one space!");
                 if (arePawnsOnBoard(userPos) == false) {
                     System.out.println("You have no pawns on the board to move forward!");
+                    System.out.println("Press enter to continue");
+                    scan.nextLine();
                     break;
                 }
                 //give player option on what to do
@@ -660,6 +672,8 @@ public class BoardGame {
                 System.out.println("You pulled a ELEVEN!\nMove pawn forward 10 spaces OR switch one of your pawns with one of the opponent’s");
                 if (arePawnsOnBoard(userPos) == false) {
                     System.out.println("You have no pawns on the board to move forward!");
+                    System.out.println("Press enter to continue");
+                    scan.nextLine();
                     break;
                 }
                 //give player option on what to do
@@ -692,6 +706,8 @@ public class BoardGame {
                 System.out.println("You pulled a TWELVE!\nMove one pawn forward 12 spaces");
                 if (arePawnsOnBoard(userPos) == false) {
                     System.out.println("You have no pawns on the board to move forward!");
+                    System.out.println("Press enter to continue");
+                    scan.nextLine();
                     break;
                 }
                 moveForward(getToStartNode(), 12, false);
