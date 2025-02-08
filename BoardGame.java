@@ -881,7 +881,7 @@ public class BoardGame {
     public static BoardNode getToStartNode(int arrayIndex){
         BoardNode temp = head;
         int startSpot = userPos[arrayIndex];
-        for (int i = 1; i <= startSpot; i++){//think this works?
+        for (int i = 1; i < startSpot; i++){
             temp = temp.next;
             //update array to reflect new position
         }
@@ -898,4 +898,5 @@ public class BoardGame {
         }
         return false;
     }//end checkPawnsInPlay
-}//end class BoardGame-nm
+}//end class BoardGame
+
