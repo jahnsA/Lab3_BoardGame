@@ -349,7 +349,8 @@ public class BoardGame {
             //if it's in the home spot
             //MOVE TO START OF SAFE ZONE
             
-        //} else if(CheckPawnSafeZone(currentPositon, spacesToBeMoved, isComputer) == true) {
+            
+        } else if(CheckPawnSafeZone(arrayIndex, currentPositon, spacesToBeMoved, isComputer) == true) {
             //moved into safe zone
         }  else if (checkIfEnoughSpaces(spacesToBeMoved, currentPositon, isComputer) == true) { //if you have enough valid spaces to play
             if (spacesToBeMoved == 1) {
@@ -364,47 +365,47 @@ public class BoardGame {
     }//end moveForward
 
     //checks to see if the pawn will enter the safe zone in the middle of their turn
-    /*public static boolean CheckPawnSafeZone(BoardNode pawnPos, int spacesToBeMoved, boolean isComputer) {
+    public static boolean CheckPawnSafeZone(int arrayIndex, BoardNode pawnPos, int spacesToBeMoved, boolean isComputer) {
         if(checkIfEnoughSpaces(spacesToBeMoved, pawnPos, isComputer) == true) {
             //move it to the safe zone
             if (isComputer== true) {
                 //computer pawn
                 if ((pawnPos.getSpaceNum() == 60) && (spacesToBeMoved > 3)) { //means it enters the safe zone
                     //enter safe zone
-                    moveForward(3, true);
+                    moveForward(arrayIndex, 3, true);
                     return true;
                 } else if((pawnPos.getSpaceNum() == 1) && (spacesToBeMoved > 2)) { //means it enters the safe zone
                      //enter safe zone 
-                     moveForward( 2, true);
+                     moveForward(arrayIndex, 2, true);
                      //enter safe zone
                      return true;
                 } else if((pawnPos.getSpaceNum() == 2) &&(spacesToBeMoved <= 7)) { //means it enters the safe zone
                      //enter safe zone spaces - 1
-                    moveForward(1, true);
+                    moveForward(arrayIndex,1, true);
                     //enter safe zone
                     return true;
                 } else if((pawnPos.getSpaceNum() == 3) && (spacesToBeMoved <=6)) { //means it enters the safe zone
                      //enter safe zone space
                      //then walk forward
-                     moveForward(spacesToBeMoved-6, true);
+                     moveForward(arrayIndex,spacesToBeMoved-6, true);
                      return true;
                 } else if(pawnPos.getSpaceNum() - 4 + spacesToBeMoved > 60) { ///means it enters the safe zone
                     int spacesTilSafe = ((pawnPos.getSpaceNum() - 4 + spacesToBeMoved) - 60);
-                    moveForward(spacesTilSafe, true);
+                    moveForward(arrayIndex,spacesTilSafe, true);
                     //enter safe zone spaces - 6
                     return true;
                 } 
             } else { //computer is false, player pawn and play
                 if ((23 + pawnPos.getSpaceNum()) - 3 + spacesToBeMoved > 60) {
                     int spacesTilSafe = (pawnPos.getSpaceNum() -3 + spacesToBeMoved) -60;
-                    moveForward(spacesTilSafe, isComputer);
+                    moveForward(arrayIndex,spacesTilSafe, isComputer);
                     //enter safe zone  
                     return true;
                 } 
             }
         } return false;
         
-    } //end of CheckPawnSafeZone*/
+    } //end of CheckPawnSafeZone
 
     //method that moves the pawn back a certain amount of spaces
     public void moveBackward(int arrayIndex, int spacesToBeMoved) {
@@ -450,13 +451,13 @@ public class BoardGame {
             } else if(pawnPos.getSpaceNum() - 4 + spacestoMove == 66) { //66 bc there are 66 spots on board including safe zones
                 return true;
             } else {return false;}
-        }
-        else { //computer is false, player pawn and play
-            //only works for outside of board rn (not safe zones)
-            if (pawnPos.getSpaceNum() + spacestoMove <= 60) {//OG code (didn't work): 23 + pawnPos.getSpaceNum()) - 3 + spacestoMove <= 66
+        }//end if is computer
+        //else { //computer is false, player pawn and play (not working right now)
+            /*if (pawnPos.getSpaceNum() + spacestoMove != 34) {//34 is one space after the player home spot
                 return true;
             } else {return false;} //not enough valid spaces
-        }
+        }*/
+        return true;//players turn rn (fix)
     } //end checkIfCanPlay
     
     //code for all the cards that move a pawn forward a certain amount of spaces
@@ -844,7 +845,7 @@ public class BoardGame {
     }//end choosePawn
 
     public void createSafeZones() {
-        //create player safe zone
+        //create player safe zone (61-66)
         playHead = new BoardNode(61); //creates node 61
         playTail = playHead;
         for(int i = 62; i < 66; i++) { //creates nodes 62-65
@@ -856,7 +857,7 @@ public class BoardGame {
         playTail.next = new BoardNode(66); //create nodes 66
         playTail = playTail.next;
 
-        //create computer safe zone
+        //create computer safe zone (67-73)
         compHead = new BoardNode(67); //create node 67
         compTail = compHead;
         for(int j = 68; j < 73; j++) { //creates nodes 68-72
